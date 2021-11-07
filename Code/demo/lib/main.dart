@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'pages.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(CoreRunning());
 }
 
-class MyApp extends StatelessWidget {
+class CoreRunning extends AppCore {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
