@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'first_task_dialog.dart';
 
 class ProfileCreationP1 extends StatelessWidget {
   const ProfileCreationP1({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class ProfileCreationP1 extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "HH brother that's a mighty fine name! Lets get to gettin' now!",
+                        "Nice to meet you, [name]! Let's get going to the main page!",
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -41,7 +42,13 @@ class ProfileCreationP1 extends StatelessWidget {
                       backgroundColor: Colors.black87,
                     ),
                     // ignore: avoid_print
-                    onPressed: () => print('button clicked'),
+                    onPressed: () => showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return const FirstTaskDialog();
+                          },
+                        ),
                     child: const Text("Yeehaw 🤠")),
               )
             ],
