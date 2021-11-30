@@ -10,6 +10,10 @@ Ben LaFene - lafenebp@mail.uc.edu - Computer Science Major
 
 Sam Jansen - jansensd@mail.uc.edu - Computer Science Major 
 
+## Advisor
+
+John Gallagher gallagj9@ucmail.uc.edu - ADVISOR
+
 ## Project Topic Area 
 
 Mobile App Development 
