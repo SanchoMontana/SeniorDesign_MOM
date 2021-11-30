@@ -1,31 +1,13 @@
 ## Project Description 
 
-We are designing our app from the ground up to be a friendly experience for its users. Our hope is that users will come to the application wanting to change 
-their habbits and better their lives and we want to provide something to help them along the way.
+We are designing our app from the ground up to be a friendly experience for its users. Our hope is that users will come to the application wanting to change their habits and better their lives and we want to provide something to help them along the way.
 
-In our early reasearch stage, we came to the conclusion that a lot of apps which are geared towards helping people improve their lives have a lot of limitations.
-For one thing, most apps in the marketplace today have a UI which does not feel very fluid to the user. When designing an application to help modidfy behavior
-instead of just rewarding it, it is important to let users take essential actions in very few clicks. If users feel like updating thier completion of tasks 
-or making new tasks is a frustrating process, they will do it less. We are also going to take steps to ensure that the callendar view which serves as the user's
-home screen in our app will be clutter free at all times. We aim to accomplish this in part by only offering two calendar views: daily and weekly. 
+In our early research stage, we came to the conclusion that a lot of apps which are geared towards helping people improve their lives have a lot of limitations. For one thing, most apps in the marketplace today have a UI which does not feel very fluid to the user. When designing an application to help modify behavior instead of just rewarding it, it is important to let users take essential actions in very few clicks. If users feel like updating their completion of tasks or making new tasks is a frustrating process, they will do it less. We are also going to take steps to ensure that the calendar view which serves as the user's home screen in our app will be clutter free at all times. We aim to accomplish this in part by only offering two calendar views: daily and weekly.
 
-Another area in which we seek to improve on the competition is through the implementation of a virtual pet. Examples of virtual pets becoming ingrained in peoples'
-lives are littered throughout our modern history. Pokemon Go became the most successful app to ever launch overnight when it was released in 2015, and the 
-Tamagotchi keychain crazy of the 90's was a long running pop culture sensation. These inventions have two big things in common. They both prayed on people's 
-tendancie's towards protecting cute and lovable animals and they both features pretty low amounts of interactivity. Our hope is to preserve the cute aspect
-of this idea while allowing the pet to encourage users to make better habbits. Our hope is that users will schedule activities they want to do ahead of time,
-and when the time comes to complete that action the animal will start behaving similarly to how the user should. Our hope is to create a "monkey see monkey do"
-affect in users and make them feel more compelled to act as they previously stated they should. 
+Another area in which we seek to improve on the competition is through the implementation of a virtual pet. Examples of virtual pets becoming ingrained in peoples' lives are littered throughout our modern history. Pokemon Go became the most successful app to ever launch overnight when it was released in 2015, and the Tamagotchi keychain craze of the 90's was a long running pop culture sensation. These inventions have two big things in common. They both prayed on people's tendencies towards protecting cute and lovable animals and they both featured pretty low amounts of interactivity. Our hope is to preserve the cute aspect of this idea while allowing the pet to encourage users to make better habits. Our hope is that users will schedule activities they want to do ahead of time, and when the time comes to complete that action the animal will start behaving similarly to how the user should. Our hope is to create a "monkey see monkey do" affect in users and make them feel more compelled to act as they previously stated they should.
 
-Though it would be out of scope for our original project, we are also leaving room for enhanced interactivity with the pets. We are hoping to give animals several
-stats, and in a future stage of the project we may be able to make these animals compete against each other. An animals stats would determine performance in these
-games. We hope that this feature itself as well as the release of new games over time will keep users coming back for more. 
+Though it would be out of scope for our original project, we are also leaving room for enhanced interactivity with the pets. We are hoping to give animals several stats, and in a future stage of the project we may be able to make these animals compete against each other. An animal's stats would determine performance in these games. We hope that this feature itself as well as the release of new games over time will keep users coming back for more.
 
-The final big feature in scope for our initial release is a healthy networking feature. Though we do believe in the monkey see monkey do affect of the virtual pet,
-the encouragement of other humans is also a very powerful form of encouragement. Our hope is to allow users to create different "groups" which all track one or 
-more activities together. Our thinking is that these groups would largely be categorized by subject matter. You might have one group to track your exercise with,
-another to track your study habits with, and so on. Group habbits for any groups you belong to awill ppear on your daily and weekly view. Additionally, groups will
-be represented by a room which the user can view. This room will contain a group calendar display which only shows the activies that group is tracking together.
-You will also be able to view the pets of all the users in the group within this room. 
+The final big feature in scope for our initial release is a healthy networking feature. Though we do believe in the monkey see monkey do effect of the virtual pet, the encouragement of other humans is also a very powerful form of encouragement. Our hope is to allow users to create different "groups" which all track one or more activities together. Our thinking is that these groups would largely be categorized by subject matter. You might have one group to track your exercise with, another to track your study habits with, and so on. Group habits for any groups you belong to will appear on your daily and weekly view. Additionally, groups will be represented by a room which the user can view. This room will contain a group calendar display which only shows the activities that group is tracking together. You will also be able to view the pets of all the users in the group within this room.
 
 We hope this combination of fluid UI, pet implementation, and social features will make our app compelling enough for users to implement into their lives
