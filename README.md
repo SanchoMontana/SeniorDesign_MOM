@@ -1,6 +1,6 @@
 # SeniorDesign_MOM
 
-# Habit Tracker ReadMe
+### Habit Tracker ReadMe
 
 ##### Habbit Tracker is made by Spencer Snider, Ben LaFene and Sam Jansen
 
