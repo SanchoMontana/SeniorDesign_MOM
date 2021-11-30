@@ -1,6 +1,6 @@
 ## Project Abstract
 
-Our Habit Tracker helps users build and break habits. Users are motivated both by an adorable virtual pet which they earn cosmetic items for based on task completion and by a healthy networking feature which will allow users to encourage their friends and mock their enemies. The app will also feature a fluid user interface, turning the user experience from an adversarial one to amicable one
+Our Habit Tracker helps users build and break habits. Users are motivated both by an adorable virtual pet which they earn cosmetic items for based on task completion and by a healthy networking feature which will allow users to encourage their friends and mock their enemies. The app will also feature a fluid user interface, turning the user experience from an adversarial one to an amicable one
 
 ## Team MOM 
 
