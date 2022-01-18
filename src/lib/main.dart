@@ -2,8 +2,10 @@ import 'package:demo/pages/landing_page.dart';
 import 'package:demo/pages/profile_creation_intro.dart';
 import 'package:demo/pages/profile_creation_p1.dart';
 import 'package:demo/pages/first_task_dialog.dart';
+import 'package:demo/pages/task_creation.dart';
 import 'package:flutter/material.dart';
 import 'pages/pet_creation.dart';
+import 'package:demo/pages/task_creation.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -30,7 +32,7 @@ class CoreRunning extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProfileCreationIntro()));
+                        builder: (context) => const TaskCreation()));
               },
             ),
             const SizedBox(
