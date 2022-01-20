@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:demo/custom_widgets/custom_text_button.dart';
 import 'package:demo/pages/first_task_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:yaml/yaml.dart';
@@ -6,10 +7,7 @@ import 'package:flutter/services.dart' as s;
 import 'profile_creation_p1.dart';
 
 class ProfileCreationIntro extends StatelessWidget {
-  ProfileCreationIntro({Key? key}) : super(key: key);
-
-  //TODO: remember to make the dispose method and call it appropriately, chck the TextEditingController
-  final nameController = TextEditingController();
+  const ProfileCreationIntro({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +18,13 @@ class ProfileCreationIntro extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 350,
+                height: 300,
                 width: 350,
                 child: Card(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Center(
+                    children: const [
+                      Center(
                         child: Text(
                           "[hooray pet done, whats your name]",
                           textAlign: TextAlign.center,
@@ -36,8 +34,7 @@ class ProfileCreationIntro extends StatelessWidget {
                         height: 40,
                         width: 300,
                         child: TextField(
-                          controller: nameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Name',
                           ),
@@ -48,29 +45,12 @@ class ProfileCreationIntro extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                height: 40,
-                width: 343,
-                child: TextButton(
-                  child: const Text("That's my name!"),
-                  //TODO: figure out how to write to a yaml and save the name in the text field, currently this doesn't work
-                  //not sure what else to do, since this yaml thing was a package so i dont think reading/writing is supported by default
-
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfileCreationP1()));
-                  },
-
-                  /* onPressed: () async {
-                    String newName = nameController.text;
-                    var file = await s.rootBundle.loadString('test.yaml');
-                    var doc = loadYaml(file);
-                    //write to yaml file here if we can figure it out
-                  }, */
-                ),
-              )
+              customTextButton("That's my name!", () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileCreationP1()));
+              }, width: 340)
             ],
           ),
         ),

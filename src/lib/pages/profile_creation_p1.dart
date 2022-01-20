@@ -1,3 +1,4 @@
+import 'package:demo/custom_widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'first_task_dialog.dart';
 
@@ -13,7 +14,7 @@ class ProfileCreationP1 extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 350,
+                height: 300,
                 width: 350,
                 child: Card(
                   child: Center(
@@ -28,20 +29,16 @@ class ProfileCreationP1 extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              SizedBox(
-                height: 40,
-                width: 343,
-                child: TextButton(
-                    // ignore: avoid_print
-                    onPressed: () => showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return const FirstTaskDialog();
-                          },
-                        ),
-                    child: const Text("Yeehaw 🤠")),
-              )
+              customTextButton(
+                  "Yeehaw 🤠",
+                  () => showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return const FirstTaskDialog();
+                        },
+                      ),
+                  width: 340),
             ],
           ),
         ),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-SizedBox customTextButton(String buttonText, Function() onPressed,
-    {double width = 140, ButtonStyle? style}) {
+SizedBox customTextButton(String buttonText, void Function() onPressed,
+    {double width = 140}) {
   return SizedBox(
     width: width,
     child: TextButton(
-      style: style,
       onPressed: onPressed,
       child: Text(buttonText),
     ),

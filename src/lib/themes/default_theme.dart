@@ -21,12 +21,10 @@ class DefaultTheme {
     );
   }
 
-  static TextButtonThemeData get textButtonSelectedTheme {
-    return TextButtonThemeData(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(textButtonSelectedColor),
-        foregroundColor: MaterialStateProperty.all(textButtonTextColor),
-      ),
+  static ButtonStyle get textButtonSelectedTheme {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(textButtonSelectedColor),
+      foregroundColor: MaterialStateProperty.all(textButtonTextColor),
     );
   }
 }
