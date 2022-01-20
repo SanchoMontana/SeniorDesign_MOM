@@ -44,7 +44,7 @@ class CoreRunning extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FirstTaskDialog()));
+                          builder: (context) => ProfileCreationIntro()));
                 },
                 child: const Text('Control Life ;-;'))
           ],
