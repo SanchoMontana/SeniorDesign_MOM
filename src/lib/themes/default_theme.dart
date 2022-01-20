@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
 
+Color textButtonColor = Colors.deepPurple[300]!;
+Color textButtonSelectedColor = Colors.deepPurple[800]!;
+Color textButtonTextColor = Colors.black87;
+
 class DefaultTheme {
-  static ThemeData get defaultTheme { //1
-    return ThemeData( //2
+  static ThemeData get defaultTheme {
+    return ThemeData(
       primaryColor: Colors.purple,
-      scaffoldBackgroundColor: Colors.white,
-      fontFamily: 'Montserrat', //3
-      buttonTheme: ButtonThemeData( // 4
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-        buttonColor: CustomColors.lightPurple,
-      )
+      scaffoldBackgroundColor: Colors.lightGreen,
+      fontFamily:
+          'Montserrat', //doesn't actually work because i dont have this font installed
+      cardColor: Colors.blueGrey[500],
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(textButtonColor),
+          foregroundColor: MaterialStateProperty.all(textButtonTextColor),
+        ),
+      ),
+    );
+  }
+
+  static TextButtonThemeData get textButtonSelectedTheme {
+    return TextButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(textButtonSelectedColor),
+        foregroundColor: MaterialStateProperty.all(textButtonTextColor),
+      ),
     );
   }
 }

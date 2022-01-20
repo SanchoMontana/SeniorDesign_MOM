@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-ButtonStyle customTextButtonStyle = ButtonStyle(
-    foregroundColor: MaterialStateProperty.all(Colors.white70),
-    backgroundColor: MaterialStateProperty.all(Colors.deepPurple[300]));
-
-SizedBox customTextButton(String buttonText) {
+SizedBox customTextButton(String buttonText, Function() onPressed,
+    {double width = 140, ButtonStyle? style}) {
   return SizedBox(
-    width: 140,
+    width: width,
     child: TextButton(
-      style: customTextButtonStyle,
-      // ignore: avoid_print
-      onPressed: () => print("test"),
+      style: style,
+      onPressed: onPressed,
       child: Text(buttonText),
     ),
   );

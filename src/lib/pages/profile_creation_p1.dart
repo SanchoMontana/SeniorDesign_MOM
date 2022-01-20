@@ -7,11 +7,6 @@ class ProfileCreationP1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[200],
-/*         appBar: AppBar(
-          title: const Text('Spencer Stinks!!!'),
-          backgroundColor: Colors.red[600],
-        ), */
       body: SafeArea(
         child: Center(
           child: Column(
@@ -37,10 +32,6 @@ class ProfileCreationP1 extends StatelessWidget {
                 height: 40,
                 width: 343,
                 child: TextButton(
-                    style: TextButton.styleFrom(
-                      primary: Colors.white,
-                      backgroundColor: Colors.black87,
-                    ),
                     // ignore: avoid_print
                     onPressed: () => showDialog(
                           barrierDismissible: false,
@@ -56,25 +47,5 @@ class ProfileCreationP1 extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class BottomButton extends StatelessWidget {
-  final String bText;
-  final void Function()? onPressed;
-
-  const BottomButton({Key? key, required this.bText, required this.onPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        style: TextButton.styleFrom(
-          primary: Colors.white,
-          backgroundColor: Colors.black87,
-        ),
-        // ignore: avoid_print
-        onPressed: onPressed,
-        child: Text(bText));
   }
 }

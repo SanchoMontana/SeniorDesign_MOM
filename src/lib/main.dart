@@ -3,14 +3,17 @@ import 'package:demo/pages/profile_creation_intro.dart';
 import 'package:demo/pages/profile_creation_p1.dart';
 import 'package:demo/pages/first_task_dialog.dart';
 import 'package:demo/pages/task_creation.dart';
+import 'package:demo/themes/default_theme.dart';
 import 'package:flutter/material.dart';
 import 'pages/pet_creation.dart';
 import 'package:demo/pages/task_creation.dart';
+import 'package:demo/themes/default_theme.dart';
 
 void main() {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
+    theme: DefaultTheme.defaultTheme,
     title: 'Landing Page',
-    home: CoreRunning(),
+    home: const CoreRunning(),
   ));
 }
 
@@ -19,9 +22,7 @@ class CoreRunning extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-      backgroundColor: Colors.black,
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,6 +51,6 @@ class CoreRunning extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    );
   }
 }
