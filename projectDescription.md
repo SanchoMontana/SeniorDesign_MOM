@@ -11,3 +11,9 @@ Though it would be out of scope for our original project, we are also leaving ro
 The final big feature in scope for our initial release is a healthy networking feature. Though we do believe in the monkey see monkey do effect of the virtual pet, the encouragement of other humans is also a very powerful form of encouragement. Our hope is to allow users to create different "groups" which all track one or more activities together. Our thinking is that these groups would largely be categorized by subject matter. You might have one group to track your exercise with, another to track your study habits with, and so on. Group habits for any groups you belong to will appear on your daily and weekly view. Additionally, groups will be represented by a room which the user can view. This room will contain a group calendar display which only shows the activities that group is tracking together. You will also be able to view the pets of all the users in the group within this room.
 
 We hope this combination of fluid UI, pet implementation, and social features will make our app compelling enough for users to implement into their lives
+
+.
+.
+.
+
+UnBlock’d is a mobile application that looks and feels like a schedule but acts a bit differently. Its focus is to create habits through doing. UnBlock’d recognizes the value of accountability, so tasks can be shared with friends. This quasi-calendar application also caters to the spontaneous bunch by not forcing users to time box events (unless you want to). UnBlock’d keeps track of your goals and helps you achieve them. A large portion of our application’s marketability comes from a clean user experience which makes the user feel as though the application and them are working together to enforce positive change in their life. In order to achieve this experience, we will test our individual program components as we build them, before writing more comprehensive tests which will evaluate functionality as a whole. 
