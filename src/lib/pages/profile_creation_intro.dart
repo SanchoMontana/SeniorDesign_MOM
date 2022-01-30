@@ -1,9 +1,5 @@
-import 'dart:convert';
 import 'package:demo/custom_widgets/custom_text_button.dart';
-import 'package:demo/pages/first_task_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:yaml/yaml.dart';
-import 'package:flutter/services.dart' as s;
 import 'profile_creation_p1.dart';
 
 class ProfileCreationIntro extends StatelessWidget {

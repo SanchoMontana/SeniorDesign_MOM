@@ -1,5 +1,7 @@
+import 'package:demo/custom_widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/themes/default_theme.dart';
+import 'package:demo/custom_widgets/day_picker_button.dart';
 
 class TaskCreation extends StatefulWidget {
   const TaskCreation({Key? key}) : super(key: key);
@@ -117,11 +119,34 @@ class _TaskCreationState extends State<TaskCreation> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 20),
                       daysPressed
-                          ? const DaysWidget()
+                          ? const DayPicker()
                           : timesPressed
-                              ? const TimesWidget()
+                              ? NumberPicker()
                               : Container(),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          customTextButton(
+                            'Cancel',
+                            () {
+                              // ignore: avoid_print
+                              print('cancelling :(');
+                            },
+                            width: 140,
+                          ),
+                          customTextButton(
+                            'Submit', //TODO: turn this into a form and don't let them hit submit until enough is selected
+                            () {
+                              // ignore: avoid_print
+                              print('submitting :D');
+                            },
+                            width: 140,
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -134,30 +159,112 @@ class _TaskCreationState extends State<TaskCreation> {
   }
 }
 
-class DaysWidget extends StatefulWidget {
-  const DaysWidget({Key? key}) : super(key: key);
+//for the submit button, you could see if you can just enable or disable it thru code, and just make sure that name has a value, the buttons are selected, and days or # is selected. just a giant if-condition
+
+//daypicker widget with text as constructor parameter. define theme variable, when it's clicked call a changeBackground method that updates the theme? with onPressed and setState?
+
+class DayPicker extends StatefulWidget {
+  const DayPicker({Key? key}) : super(key: key);
 
   @override
-  _DaysWidgetState createState() => _DaysWidgetState();
+  _DayPickerState createState() => _DayPickerState();
 }
 
-class _DaysWidgetState extends State<DaysWidget> {
+class _DayPickerState extends State<DayPicker> {
   @override
   Widget build(BuildContext context) {
-    return const Text("Dayman aaaahhhh");
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const Text("Select which days you want to be reminded:"),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            DayPickerButton('Su'),
+            DayPickerButton('Mo'),
+            DayPickerButton('Tu'),
+            DayPickerButton('We'),
+            DayPickerButton('Th'),
+            DayPickerButton('Fr'),
+            DayPickerButton('Su'),
+          ],
+        ),
+      ],
+    );
   }
 }
 
-class TimesWidget extends StatefulWidget {
-  const TimesWidget({Key? key}) : super(key: key);
+class NumberPicker extends StatefulWidget {
+  int count = 1;
+
+  NumberPicker({Key? key}) : super(key: key);
 
   @override
-  _TimesWidgetState createState() => _TimesWidgetState();
+  _NumberPickerState createState() => _NumberPickerState();
 }
 
-class _TimesWidgetState extends State<TimesWidget> {
+class _NumberPickerState extends State<NumberPicker> {
   @override
   Widget build(BuildContext context) {
-    return const Text("Fighter of the night man!");
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              if (widget.count > 1) {
+                widget.count--;
+              }
+            });
+          },
+          child: Container(
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              color: DefaultTheme.textButtonColor,
+              shape: BoxShape.circle,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Icon(Icons.remove, size: 25),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          widget.count.toString(),
+          style: const TextStyle(fontSize: 35),
+        ),
+        const SizedBox(width: 10),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              if (widget.count < 7) {
+                widget.count++;
+              }
+            });
+          },
+          child: Container(
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              color: DefaultTheme.textButtonColor,
+              shape: BoxShape.circle,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Icon(Icons.add, size: 25),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

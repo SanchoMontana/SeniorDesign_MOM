@@ -12,11 +12,13 @@ class FirstTaskDialog extends StatelessWidget {
       ),
       actions: [
         TextButton(
+          // ignore: avoid_print
           onPressed: () => print('no pressed'),
           child: const Text("No 😠"),
         ),
         TextButton(
           child: const Text("Yes 😇"),
+          // ignore: avoid_print
           onPressed: () => print('yes pressed'),
         ),
       ],
