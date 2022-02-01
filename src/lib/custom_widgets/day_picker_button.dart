@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:demo/pages/constants.dart';
 
 class DayPickerButton extends StatefulWidget {
   final String btnText;
@@ -25,9 +26,7 @@ class _DayPickerButtonState extends State<DayPickerButton> {
         height: 30,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: btnSelected
-              ? DefaultTheme.textButtonSelectedColor
-              : DefaultTheme.textButtonColor,
+          color: btnSelected ? kTextButtonSelectedColor : kTextButtonColor,
           shape: BoxShape.circle,
         ),
         child: Text(widget.btnText),

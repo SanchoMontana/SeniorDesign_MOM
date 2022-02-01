@@ -1,6 +1,7 @@
 import 'package:demo/custom_widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/day_picker_button.dart';
+import 'package:demo/pages/constants.dart';
 
 class TaskCreation extends StatefulWidget {
   const TaskCreation({Key? key}) : super(key: key);
@@ -53,7 +54,7 @@ class _TaskCreationState extends State<TaskCreation> {
                             width: 140,
                             child: TextButton(
                               style: buildPressed
-                                  ? DefaultTheme.textButtonSelectedTheme
+                                  ? kTextButtonSelectedTheme
                                   : null,
                               child: const Text("Build 👷‍♂️"),
                               onPressed: () {
@@ -68,7 +69,7 @@ class _TaskCreationState extends State<TaskCreation> {
                             width: 140,
                             child: TextButton(
                               style: breakPressed
-                                  ? DefaultTheme.textButtonSelectedTheme
+                                  ? kTextButtonSelectedTheme
                                   : null,
                               child: const Text("Break 🔨"),
                               onPressed: () {
@@ -89,9 +90,8 @@ class _TaskCreationState extends State<TaskCreation> {
                           SizedBox(
                             width: 140,
                             child: TextButton(
-                              style: daysPressed
-                                  ? DefaultTheme.textButtonSelectedTheme
-                                  : null,
+                              style:
+                                  daysPressed ? kTextButtonSelectedTheme : null,
                               child: const Text("Certain Days"),
                               onPressed: () {
                                 setState(() {
@@ -105,7 +105,7 @@ class _TaskCreationState extends State<TaskCreation> {
                             width: 140,
                             child: TextButton(
                               style: timesPressed
-                                  ? DefaultTheme.textButtonSelectedTheme
+                                  ? kTextButtonSelectedTheme
                                   : null,
                               child: const Text("Certain # of Times"),
                               onPressed: () {
@@ -121,7 +121,7 @@ class _TaskCreationState extends State<TaskCreation> {
                       daysPressed
                           ? const DayPicker()
                           : timesPressed
-                              ? NumberPicker()
+                              ? const NumberPicker()
                               : Container(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -224,7 +224,7 @@ class _NumberPickerState extends State<NumberPicker> {
                 width: 25,
                 height: 25,
                 decoration: BoxDecoration(
-                  color: DefaultTheme.textButtonColor,
+                  color: kTextButtonColor,
                   shape: BoxShape.circle,
                 ),
                 child: Column(
@@ -254,7 +254,7 @@ class _NumberPickerState extends State<NumberPicker> {
                 width: 25,
                 height: 25,
                 decoration: BoxDecoration(
-                  color: DefaultTheme.textButtonColor,
+                  color: kTextButtonColor,
                   shape: BoxShape.circle,
                 ),
                 child: Column(
