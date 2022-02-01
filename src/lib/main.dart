@@ -1,17 +1,15 @@
 import 'package:demo/pages/profile_creation_intro.dart';
 import 'package:demo/pages/task_creation.dart';
-import 'package:demo/themes/default_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:demo/pages/constants.dart';
 
 void main() {
   runApp(MaterialApp(
-    theme: DefaultTheme.defaultTheme,
+    theme: kDefaultTheme,
     title: 'Landing Page',
     home: const CoreRunning(),
   ));
 }
-
-//testing this change ay lmao
 
 class CoreRunning extends StatelessWidget {
   const CoreRunning({Key? key}) : super(key: key);

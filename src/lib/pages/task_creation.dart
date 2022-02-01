@@ -1,6 +1,5 @@
 import 'package:demo/custom_widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
-import 'package:demo/themes/default_theme.dart';
 import 'package:demo/custom_widgets/day_picker_button.dart';
 
 class TaskCreation extends StatefulWidget {
