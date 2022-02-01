@@ -119,13 +119,11 @@ class _TaskCreationState extends State<TaskCreation> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
                       daysPressed
                           ? const DayPicker()
                           : timesPressed
                               ? NumberPicker()
                               : Container(),
-                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -176,11 +174,12 @@ class _DayPickerState extends State<DayPicker> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        const SizedBox(height: 20),
         const Text("Select which days you want to be reminded:"),
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          children: const [
             DayPickerButton('Su'),
             DayPickerButton('Mo'),
             DayPickerButton('Tu'),
@@ -190,80 +189,87 @@ class _DayPickerState extends State<DayPicker> {
             DayPickerButton('Su'),
           ],
         ),
+        const SizedBox(height: 20),
       ],
     );
   }
 }
 
 class NumberPicker extends StatefulWidget {
-  int count = 1;
-
-  NumberPicker({Key? key}) : super(key: key);
+  const NumberPicker({Key? key}) : super(key: key);
 
   @override
   _NumberPickerState createState() => _NumberPickerState();
 }
 
 class _NumberPickerState extends State<NumberPicker> {
+  int count = 1;
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              if (widget.count > 1) {
-                widget.count--;
-              }
-            });
-          },
-          child: Container(
-            width: 25,
-            height: 25,
-            decoration: BoxDecoration(
-              color: DefaultTheme.textButtonColor,
-              shape: BoxShape.circle,
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (count > 1) {
+                    count--;
+                  }
+                });
+              },
+              child: Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: DefaultTheme.textButtonColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.remove, size: 25),
+                  ],
+                ),
+              ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Icon(Icons.remove, size: 25),
-              ],
+            const SizedBox(width: 10),
+            Text(
+              count.toString(),
+              style: const TextStyle(fontSize: 35),
             ),
-          ),
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (count < 7) {
+                    count++;
+                  }
+                });
+              },
+              child: Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                  color: DefaultTheme.textButtonColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.add, size: 25),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 10),
-        Text(
-          widget.count.toString(),
-          style: const TextStyle(fontSize: 35),
-        ),
-        const SizedBox(width: 10),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              if (widget.count < 7) {
-                widget.count++;
-              }
-            });
-          },
-          child: Container(
-            width: 25,
-            height: 25,
-            decoration: BoxDecoration(
-              color: DefaultTheme.textButtonColor,
-              shape: BoxShape.circle,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Icon(Icons.add, size: 25),
-              ],
-            ),
-          ),
-        ),
+        const SizedBox(height: 20),
       ],
     );
   }
