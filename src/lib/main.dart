@@ -1,7 +1,7 @@
 import 'package:demo/pages/profile_creation_intro.dart';
 import 'package:demo/pages/task_creation.dart';
 import 'package:flutter/material.dart';
-import 'package:demo/pages/constants.dart';
+import 'package:demo/themes/constants.dart';
 
 void main() {
   runApp(MaterialApp(
