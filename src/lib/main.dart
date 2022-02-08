@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:demo/pages/profile_creation_intro.dart';
 import 'package:demo/pages/task_creation.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/themes/constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     theme: kDefaultTheme,
     title: 'Landing Page',
@@ -23,11 +27,14 @@ class CoreRunning extends StatelessWidget {
           children: [
             ElevatedButton(
               child: const Text('Create Life : o )'),
-              onPressed: () {
+              onPressed: () => {
+                FirebaseFirestore.instance
+                  .collection('testing')
+                  .add({'timestamp': Timestamp.fromDate(DateTime.now())}),
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const TaskCreation()));
+                        builder: (context) => const TaskCreation())),
               },
             ),
             const SizedBox(
