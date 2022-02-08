@@ -76,8 +76,6 @@ class _TaskCreationState extends State<TaskCreation> {
                           validator: (value) {
                             if (!buildPressed && !breakPressed) {
                               return 'Please select build or break';
-                            } else {
-                              return null;
                             }
                           },
                           builder: (FormFieldState state) {
@@ -132,49 +130,69 @@ class _TaskCreationState extends State<TaskCreation> {
                         const SizedBox(height: 20),
                         const Text("How do you want to be reminded?"),
                         FormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (!daysPressed && !timesPressed) {
+                              return 'Please select how you would like to be reminded';
+                            }
+                          },
                           builder: (FormFieldState state) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            return Column(
                               children: [
-                                SizedBox(
-                                  width: 140,
-                                  child: TextButton(
-                                    style: daysPressed
-                                        ? kTextButtonSelectedTheme
-                                        : null,
-                                    child: const Text("Certain Days"),
-                                    onPressed: () {
-                                      setState(() {
-                                        daysPressed = true;
-                                        timesPressed = false;
-                                      });
-                                    },
-                                  ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    SizedBox(
+                                      width: 140,
+                                      child: TextButton(
+                                        style: daysPressed
+                                            ? kTextButtonSelectedTheme
+                                            : null,
+                                        child: const Text("Certain Days"),
+                                        onPressed: () {
+                                          setState(() {
+                                            daysPressed = true;
+                                            timesPressed = false;
+                                            state.validate();
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 140,
+                                      child: TextButton(
+                                        style: timesPressed
+                                            ? kTextButtonSelectedTheme
+                                            : null,
+                                        child: const Text("Certain # of Times"),
+                                        onPressed: () {
+                                          setState(() {
+                                            daysPressed = false;
+                                            timesPressed = true;
+                                            state.validate();
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: 140,
-                                  child: TextButton(
-                                    style: timesPressed
-                                        ? kTextButtonSelectedTheme
-                                        : null,
-                                    child: const Text("Certain # of Times"),
-                                    onPressed: () {
-                                      setState(() {
-                                        daysPressed = false;
-                                        timesPressed = true;
-                                      });
-                                    },
-                                  ),
-                                ),
+                                if (state.hasError) ...[
+                                  Text(state.errorText!,
+                                      style: kErrorTextStyle),
+                                ],
                               ],
                             );
                           },
                         ),
-                        daysPressed
-                            ? DayPicker()
-                            : timesPressed
-                                ? const NumberPicker()
-                                : Container(),
+                        if (daysPressed) ...[
+                          DayPicker()
+                        ] else if (timesPressed) ...[
+                          const NumberPicker()
+                        ],
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -220,18 +238,30 @@ class DayPicker extends StatefulWidget {
 class _DayPickerState extends State<DayPicker> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const SizedBox(height: 20),
-        const Text("Select which days you want to be reminded:"),
-        const SizedBox(height: 10),
-        Row(
+    return FormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        if (!dayButtons.any((button) => button.btnSelected)) {
+          return 'Please select the day(s) you want to be reminded';
+        }
+      },
+      builder: (FormFieldState state) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: dayButtons,
-        ),
-        const SizedBox(height: 20),
-      ],
+          children: [
+            const SizedBox(height: 20),
+            const Text("Select which days you want to be reminded:"),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: dayButtons,
+            ),
+            if (state.hasError) ...[
+              Text(state.errorText!, style: kErrorTextStyle)
+            ]
+          ],
+        );
+      },
     );
   }
 }

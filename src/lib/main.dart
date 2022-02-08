@@ -5,6 +5,7 @@ import 'package:demo/pages/task_creation.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/themes/constants.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -29,8 +30,8 @@ class CoreRunning extends StatelessWidget {
               child: const Text('Create Life : o )'),
               onPressed: () => {
                 FirebaseFirestore.instance
-                  .collection('testing')
-                  .add({'timestamp': Timestamp.fromDate(DateTime.now())}),
+                    .collection('testing')
+                    .add({'timestamp': Timestamp.fromDate(DateTime.now())}),
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -46,7 +47,7 @@ class CoreRunning extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ProfileCreationIntro()));
+                          builder: (context) => const TaskCreation()));
                 },
                 child: const Text('Control Life ;-;'))
           ],
