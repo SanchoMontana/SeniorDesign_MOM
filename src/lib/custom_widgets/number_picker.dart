@@ -75,7 +75,6 @@ class _NumberPickerState extends State<NumberPicker> {
             ),
           ],
         ),
-        const SizedBox(height: 20),
       ],
     );
   }
