@@ -29,9 +29,6 @@ class CoreRunning extends StatelessWidget {
             ElevatedButton(
               child: const Text('Create Life : o )'),
               onPressed: () => {
-                FirebaseFirestore.instance
-                    .collection('testing')
-                    .add({'timestamp': Timestamp.fromDate(DateTime.now())}),
                 Navigator.push(
                     context,
                     MaterialPageRoute(
