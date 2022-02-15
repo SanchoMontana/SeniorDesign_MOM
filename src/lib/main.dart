@@ -9,17 +9,20 @@ import 'package:demo/pages/home.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(Unblockd());
 }
 
-class MyApp extends StatelessWidget {
+class Unblockd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
-      //home: const CoreRunning(),
       theme: kDefaultTheme,
-      title: 'Landing Page'
+      title: 'Landing Page',
+      initialRoute: 'home',
+      routes: {
+        'home': (context) => Home(),
+        'task_creation': (context) => TaskCreation()
+      },
     );
   }
 }
