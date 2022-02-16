@@ -7,21 +7,21 @@ class Task extends StatefulWidget {
   String task_name;
   String time;
   bool today = true;
+  bool taskCompleted = false;
   Task({ Key? key, required this.task_name, required this.time, required this.today}) : super(key: key);
 
   @override
   _TaskState createState() => _TaskState();
 }
 class _TaskState extends State<Task> with SingleTickerProviderStateMixin{
-  late Animation<double> animation;
-  late AnimationController controller;
+  late Animation<double> drag_animation;
+  late AnimationController drag_controller;
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: const Duration(milliseconds: 100), vsync: this);
-    // animation = Tween<double>(begin: 0, end: 300).animate(controller)
-    animation = CurvedAnimation(parent: controller, curve: Curves.elasticOut)
-      ..addListener(() {
+    drag_controller = AnimationController(duration: const Duration(milliseconds: 100), vsync: this);
+    drag_animation = CurvedAnimation(parent: drag_controller, curve: Curves.elasticOut)
+    ..addListener(() {
         setState(() {
           // The state that has changed here is the animation object’s value.
         });
@@ -34,30 +34,40 @@ class _TaskState extends State<Task> with SingleTickerProviderStateMixin{
   double farthestShift = 0.0;
   double dragDistance = 0.0;
   bool snapBack = false;
+  // changed tells us if the task_completion changes states. This is so that the user can swipe less to uncomplete the task.
+  bool changed = false;
+  bool temp = false;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(animation: controller, 
+    return AnimatedBuilder(animation: drag_controller, 
       builder: (BuildContext context, _) {
         if(snapBack) {
-          rightShift = farthestShift - farthestShift * controller.value; 
+          rightShift = farthestShift - farthestShift * drag_controller.value; 
         }
         if(rightShift == 0.0 && snapBack == true) {
           snapBack = false;
           farthestShift = 0.0;
           // Not sure why this next line is required for it to work... But it works now.
           // TODO: Fix next line to be less hacky...
-          controller.reverse();
+          drag_controller.reverse();
         }
         return Container(
           height: 60.0,
           margin: EdgeInsets.fromLTRB(20 + rightShift, 10, 20, 10),
           child: GestureDetector(
+            // While dragging, this next block is being run every time the distance dragged changes.
             onHorizontalDragUpdate: (DragUpdateDetails details) {
               dragDistance += details.delta.dx;
               if (dragDistance < 0.0) {
                   dragDistance = 0.0;
                 }
+              temp = widget.taskCompleted;
+              widget.taskCompleted = toggleTaskCompleted(widget.taskCompleted, changed, dragDistance);
+              if (temp != widget.taskCompleted) {
+                changed = true;
+              }
+              print("hello");
               setState(() {
                 rightShift = log(dragDistance + 1) * 12;
               });
@@ -66,10 +76,12 @@ class _TaskState extends State<Task> with SingleTickerProviderStateMixin{
               dragDistance = 0;
               farthestShift = rightShift;
               snapBack = true;
-              controller.forward();
+              drag_controller.forward();
+              changed = false;
             },
             child: Card(
-              color:Color.fromARGB(80, 0, 0, 0),
+              // Color changes more green based on how far the card is shifted to the right.
+              color:Color.fromARGB(80 + rightShift.toInt(), 0, 0 + rightShift.toInt() * 3, 0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
@@ -82,7 +94,7 @@ class _TaskState extends State<Task> with SingleTickerProviderStateMixin{
                   Text(
                     widget.task_name,
                     style: TextStyle(
-                      color: Colors.blue.shade200,
+                      color: Color.fromARGB(255, 206, 206, 206),
                       fontSize: 20,
                     ),
                   ),
@@ -119,5 +131,15 @@ class _TaskState extends State<Task> with SingleTickerProviderStateMixin{
         );
       }
     );
+  }
+
+  bool toggleTaskCompleted(bool taskCompleted, bool changed, double dragDistance) {
+    if(!changed && dragDistance >= 40) {
+      return !taskCompleted;
+    } 
+    if(changed && dragDistance <= 30) {
+      return !taskCompleted;
+    }
+    return taskCompleted;
   }
 }

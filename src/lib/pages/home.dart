@@ -29,7 +29,8 @@ class Home extends StatelessWidget {
             Image.asset('res/lib_draft.png',
               width: double.infinity,
               height: double.infinity,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fitHeight,
+              alignment: Alignment.topLeft,
             ),
             ListView(
               children: today_tasks
