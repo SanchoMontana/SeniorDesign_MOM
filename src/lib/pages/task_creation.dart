@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/number_picker.dart';
 import 'package:demo/themes/constants.dart';
 
+//TODO: put all of this in a "task" class
 bool daysPressed = false;
 bool timesPressed = false;
 bool buildPressed = false;
@@ -49,6 +50,7 @@ class _TaskCreationState extends State<TaskCreation> {
                         SizedBox(
                           width: 300,
                           child: TextFormField(
+                            //TODO: need to give this a text controller to actually pull the value to send to the database.
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
@@ -206,6 +208,7 @@ class _TaskCreationState extends State<TaskCreation> {
                               'Submit', //TODO: turn this into a form and don't let them hit submit until enough is selected
                               () {
                                 if (_formKey.currentState!.validate()) {
+                                  //TODO: call async function to store to database :)
                                   print('form is good :o)');
                                 }
                               },
@@ -225,7 +228,6 @@ class _TaskCreationState extends State<TaskCreation> {
     );
   }
 }
-
 
 class DayPicker extends StatefulWidget {
   DayPicker({Key? key}) : super(key: key);
