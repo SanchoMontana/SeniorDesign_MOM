@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'pet_naming.dart';
 
 class PetTypeSelectionClass extends StatelessWidget {
@@ -16,23 +15,9 @@ class PetTypeSelectionClass extends StatelessWidget {
   }
 }
 
-Future<void> setPetType(String selection) async {
-  // obtain shared preferences
-  final prefs = await SharedPreferences.getInstance();
+final petController = ValueNotifier(TextEditingValue);
 
-  if (selection == 'bird') {
-    prefs.setString('petType', 'bird');
-    return;
-  }
-  if (selection == 'cat') {
-    prefs.setString('petType', 'cat');
-    return;
-  }
-  if (selection == 'dog') {
-    prefs.setString('petType', 'dog');
-    return;
-  }
-}
+Future<void> writeBird(String selection) async {}
 
 class PetTypeSelection extends StatefulWidget {
   const PetTypeSelection({Key? key}) : super(key: key);
@@ -43,6 +28,8 @@ class PetTypeSelection extends StatefulWidget {
 
 class _PetTypeSelectionState extends State<PetTypeSelection> {
   CarouselController buttonCarouselController = CarouselController();
+
+  TextEditingController
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -56,6 +43,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                 //1st Image of Slider
                 InkWell(
                   onTap: () {
+                    
                     Navigator.push(
                         context,
                         MaterialPageRoute(
