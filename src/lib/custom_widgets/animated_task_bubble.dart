@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 
-class Task extends StatefulWidget {
+class AnimatedTaskBubble extends StatefulWidget {
   String task_name;
   String time;
   bool today = true;
   bool taskCompleted = false;
-  Task({ Key? key, required this.task_name, required this.time, required this.today}) : super(key: key);
+  AnimatedTaskBubble({ Key? key, required this.task_name, required this.time, required this.today}) : super(key: key);
 
   @override
   _TaskState createState() => _TaskState();
 }
-class _TaskState extends State<Task> with SingleTickerProviderStateMixin{
+class _TaskState extends State<AnimatedTaskBubble> with SingleTickerProviderStateMixin{
   late Animation<double> drag_animation;
   late AnimationController drag_controller;
   @override
