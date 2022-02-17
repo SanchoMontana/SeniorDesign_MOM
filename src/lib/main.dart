@@ -11,10 +11,12 @@ import 'package:demo/pages/welcome_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(Unblockd());
+  runApp(const Unblockd());
 }
 
 class Unblockd extends StatelessWidget {
+  const Unblockd({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,9 +28,8 @@ class Unblockd extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         HomePage.id: (context) => HomePage(),
-        TaskCreation.id: (context) => TaskCreation(),
+        TaskCreation.id: (context) => const TaskCreation(),
       },
     );
   }
 }
->>>>>>> master
