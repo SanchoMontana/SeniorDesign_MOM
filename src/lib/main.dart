@@ -8,7 +8,6 @@ import 'package:demo/themes/constants.dart';
 import 'package:demo/pages/home_page.dart';
 import 'package:demo/pages/welcome_screen.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

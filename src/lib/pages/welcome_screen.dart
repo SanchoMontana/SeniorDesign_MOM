@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
+import 'package:demo/custom_widgets/rounded_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
-
   static String id = 'welcome_screen_nav';
 
   @override
@@ -14,10 +14,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
-            Image.asset('res/lib_draft.png',
+            // Set background image here!
+            Image.asset(
+              'res/lib_draft.png',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fitHeight,
@@ -30,58 +32,38 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Flash Chat',
+                    "Unblock'd",
                     style: TextStyle(
+                      color: Colors.white70,
                       fontSize: 45.0,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
                   SizedBox(
-                height: 48.0,
-              ),
-                  Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: Material(
-                  elevation: 5.0,
-                  color: Colors.lightBlueAccent,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: MaterialButton(
+                    height: 48.0,
+                  ),
+                  RoundedButton(
+                    color: Colors.redAccent,
+                    title: "Log in",
                     onPressed: () {
-                      //Go to login screen.
                       Navigator.pushNamed(context, LoginScreen.id);
                     },
-                    minWidth: 200.0,
-                    height: 42.0,
-                    child: Text(
-                      'Log In',
-                    ),
                   ),
-                ),
-              ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: Material(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(30.0),
-                      elevation: 5.0,
-                      child: MaterialButton(
-                        onPressed: () {
-                          //Go to registration screen.
-                          Navigator.pushNamed(context, RegistrationScreen.id);
-                        },
-                        minWidth: 200.0,
-                        height: 42.0,
-                        child: Text(
-                          'Register',
-                        ),
-                      ),
+                  //TODO: Fix this hero animation.
+                  Hero(
+                    tag: "reg_button",
+                    child: RoundedButton(
+                      color: Colors.indigo,
+                      title: "Register",
+                      onPressed: () {
+                        Navigator.pushNamed(context, RegistrationScreen.id);
+                      },
                     ),
-                  ),
+                  )
                 ],
               ),
             )
           ],
-        )
-      );
-    }
+        ));
+  }
 }
