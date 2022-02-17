@@ -4,6 +4,7 @@ import 'package:demo/custom_widgets/rounded_button.dart';
 import 'package:demo/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen_nav';
@@ -17,6 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showSpinner = false;
   late String email;
   late String password;
+
+  late SharedPreferences logindata;
 
   @override
   Widget build(BuildContext context) {
@@ -110,15 +113,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           showSpinner = true;
                         });
                         try {
-                          final newUser =
+                          final newFirebaseUser =
                               await _auth.signInWithEmailAndPassword(
                                   email: email, password: password);
-                          if (newUser != null) {
+                          if (newFirebaseUser != null) {
                             Navigator.pushNamed(context, HomePage.id);
                           }
                         } catch (e) {
                           print(e);
                         }
+                        logindata = await SharedPreferences.getInstance();
+                        if (email != '' && password != '') {
+                          print('Successfull');
+                          logindata.setBool('login', false);
+                          logindata.setString('email', email);
+                        }
+
                         setState(() {
                           showSpinner = false;
                         });
