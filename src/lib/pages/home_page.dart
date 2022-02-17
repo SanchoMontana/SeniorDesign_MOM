@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/animated_task_bubble.dart';
 
-class Home extends StatelessWidget {
+class HomePage extends StatelessWidget {
 
-  List<Widget> today_tasks = [
+  static String id = 'home_page_nav';
+
+  List<Widget> todayTasks = [
     
   ];
 
@@ -23,7 +25,7 @@ class Home extends StatelessWidget {
               alignment: Alignment.topLeft,
             ),
             ListView(
-              children: today_tasks
+              children: todayTasks
             )
             
           ],
