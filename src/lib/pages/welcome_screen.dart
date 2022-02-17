@@ -34,22 +34,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Text(
                     "Unblock'd",
                     style: TextStyle(
+                      fontFamily: 'Comfortaa',
                       color: Colors.white70,
-                      fontSize: 45.0,
+                      fontSize: 50.0,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
                   SizedBox(
                     height: 48.0,
                   ),
-                  RoundedButton(
-                    color: Colors.redAccent,
-                    title: "Log in",
-                    onPressed: () {
-                      Navigator.pushNamed(context, LoginScreen.id);
-                    },
+                  Hero(
+                    tag: "log_button",
+                    child: RoundedButton(
+                      color: Colors.redAccent,
+                      title: "Log in",
+                      onPressed: () {
+                        Navigator.pushNamed(context, LoginScreen.id);
+                      },
+                    ),
                   ),
-                  //TODO: Fix this hero animation.
                   Hero(
                     tag: "reg_button",
                     child: RoundedButton(
@@ -59,7 +62,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Navigator.pushNamed(context, RegistrationScreen.id);
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             )

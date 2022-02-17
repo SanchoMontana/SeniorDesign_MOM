@@ -53,3 +53,8 @@ flutter:
   assets:
     - test.yaml
     - res/
+  
+  fonts:
+    - family: Comfortaa
+      fonts:
+        - asset: fonts/Comfortaa-VariableFont_wght.ttf
