@@ -21,8 +21,11 @@ bool buildPressed = false;
 bool breakPressed = false;
 
 class TaskCreation extends StatefulWidget {
-  const TaskCreation({Key? key}) : super(key: key);
+  
+  static String id = 'task_creation_nav';
 
+  const TaskCreation({Key? key}) : super(key: key);
+  
   @override
   _TaskCreationState createState() => _TaskCreationState();
 }
