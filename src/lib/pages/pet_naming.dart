@@ -1,31 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:demo/custom_classes/pet.dart';
 
 class PetNamingClass extends StatelessWidget {
-  const PetNamingClass({Key? key}) : super(key: key);
+  final Pet currentPet;
+  const PetNamingClass({Key? key, required this.currentPet}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const PetNaming(),
+      home: PetNaming(
+        currentPet: currentPet,
+      ),
     );
   }
 }
 
 class PetNaming extends StatefulWidget {
-  const PetNaming({Key? key}) : super(key: key);
+  final Pet currentPet;
+  const PetNaming({Key? key, required this.currentPet}) : super(key: key);
 
   @override
-  _PetNaming createState() => _PetNaming();
+  // ignore: no_logic_in_create_state
+  _PetNaming createState() => _PetNaming(currentPet);
 }
 
 class _PetNaming extends State<PetNaming> {
+  late Pet currentPet;
+
+  _PetNaming(Pet petVar);
+
   @override
-  Widget build(BuildContext context) => const Center(
+  initState() {
+    currentPet = super.widget.currentPet;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) => Center(
         child: Card(
           child: Center(
-            child: Text('Name entry or whatever'),
+            child: Text('Type: ${currentPet.type}'),
           ),
         ),
       );
