@@ -28,8 +28,15 @@ class PetNaming extends StatefulWidget {
 
 class _PetNaming extends State<PetNaming> {
   late Pet currentPet;
+  late String currentName;
 
   _PetNaming(Pet petVar);
+
+  void _setPetName() {
+    setState(() {
+      currentPet.name = currentName;
+    });
+  }
 
   @override
   initState() {
@@ -41,8 +48,19 @@ class _PetNaming extends State<PetNaming> {
   Widget build(BuildContext context) => Center(
         child: Card(
           child: Center(
-            child: Text('Type: ${currentPet.type}'),
-          ),
+              child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Enter a name for your new pet',
+                ),
+                onChanged: (value) => currentName,
+              ),
+              ElevatedButton(
+                  onPressed: _setPetName, child: const Text('Thats thier name'))
+            ],
+          )),
         ),
       );
 }
