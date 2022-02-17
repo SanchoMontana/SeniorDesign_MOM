@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/rounded_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen_nav';
@@ -12,11 +13,17 @@ class RegistrationScreen extends StatefulWidget {
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
+/*
+  TODO: This may be far in the future but think about a email verification
+  so that people must have access to that email address in order 
+  to create an account with it.
+*/
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   late String email;
   late String password;
+  late SharedPreferences logindata;
 
   @override
   Widget build(BuildContext context) {
@@ -111,15 +118,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         showSpinner = true;
                       });
                       try {
-                        final newUser =
+                        final newFirebaseUser =
                             await _auth.createUserWithEmailAndPassword(
                                 email: email, password: password);
-                        if (newUser != null) {
+                        if (newFirebaseUser != null) {
                           Navigator.pushNamed(context, HomePage.id);
                         }
                       } catch (e) {
                         print(e);
                       }
+                      logindata = await SharedPreferences.getInstance();
+
+                      if (email != '' && password != '') {
+                        print('Successfull');
+                        logindata.setBool('login', false);
+                        logindata.setString('email', email);
+                      }
+
                       setState(() {
                         showSpinner = false;
                       });
