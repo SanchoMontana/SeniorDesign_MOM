@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:demo/custom_classes/pet.dart';
+import 'pet_finalization.dart';
 
 class PetNamingClass extends StatelessWidget {
   final Pet currentPet;
@@ -35,6 +36,12 @@ class _PetNaming extends State<PetNaming> {
   void _setPetName() {
     setState(() {
       currentPet.name = currentName;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PetNaming(
+                    currentPet: currentPet,
+                  )));
     });
   }
 
