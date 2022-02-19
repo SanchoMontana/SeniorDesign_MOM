@@ -31,9 +31,9 @@ class _SplashLoadingScreenState extends State<SplashLoadingScreen> {
     newuser = (logindata.getBool('login') ?? true);
     print(newuser);
     if (newuser == false) {
-      Navigator.pushNamed(context, HomePage.id);
+      Navigator.popAndPushNamed(context, HomePage.id);
     } else {
-      Navigator.pushNamed(context, WelcomeScreen.id);
+      Navigator.popAndPushNamed(context, WelcomeScreen.id);
     }
   }
 
