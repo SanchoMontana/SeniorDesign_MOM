@@ -1,8 +1,11 @@
 import 'package:demo/custom_widgets/animated_task_bubble.dart';
+import 'package:demo/pages/task_creation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/animated_task_bubble.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page_nav';
@@ -11,29 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
-
-  @override
-  void initState() {
-    super.initState();
-    getCurrentUser();
-  }
-
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-        print(loggedInUser.email);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  final _firestore = FirebaseFirestore.instance;
+  // This doesnt work.
+  // TODO: Only allow the stream to get tasks that belong to the user. Check the email logged in by using shared Prefs.
+  late SharedPreferences logindata = SharedPreferences.getInstance();
 
   List<Widget> todayTasks = [];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,7 +34,78 @@ class _HomePageState extends State<HomePage> {
                 fit: BoxFit.fitHeight,
                 alignment: Alignment.topLeft,
               ),
-              ListView(children: todayTasks)
+              //ListView(children: todayTasks),
+              StreamBuilder<QuerySnapshot>(
+                  stream: _firestore.collection('tasks').snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final tasks = snapshot.data?.docs;
+                      List<AnimatedTaskBubble> taskWidgets = [];
+                      for (var task in tasks!) {
+                        if (task.data()["owner"] == logindata.get("email")) {
+                          final task_name = task.data()["task_name"];
+                          final tod = task.data()["tod"];
+                          final bool daily = task.data()["daily"];
+
+                          final taskWidget = AnimatedTaskBubble(
+                            task_name: task_name,
+                            time: tod,
+                            today: daily,
+                          );
+                          taskWidgets.add(taskWidget);
+                        }
+                      }
+                      return ListView(children: taskWidgets);
+                    }
+                    return Text("No tasks");
+                  }),
+              // This Align object is just to prevent the user from dragging tasks on the bottom of the screen.
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                      height: 200,
+                      width: double.infinity,
+                      color: Colors.transparent)),
+              // This is the pet in the bottom left.
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Image.asset(
+                    "res/pet.png",
+                    alignment: Alignment.bottomRight,
+                    height: 150,
+                    width: 150,
+                  )),
+              // This is the add task button in the bottom right.
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                      width: 120,
+                      height: 50,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 25, horizontal: 15),
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, TaskCreation.id);
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Colors.black87,
+                                ),
+                                Text("Add Task",
+                                    style: TextStyle(
+                                        fontFamily: "Raleway",
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87))
+                              ]),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.white70,
+                            padding: EdgeInsets.all(0),
+                            elevation: 25,
+                            shape: StadiumBorder(),
+                          ))))
             ],
           )),
     );

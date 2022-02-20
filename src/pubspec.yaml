@@ -58,3 +58,6 @@ flutter:
     - family: Comfortaa
       fonts:
         - asset: fonts/Comfortaa-VariableFont_wght.ttf
+    - family: Raleway
+      fonts:
+        - asset: fonts/Raleway-VariableFont_wght.ttf

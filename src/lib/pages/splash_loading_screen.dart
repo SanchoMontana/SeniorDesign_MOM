@@ -29,7 +29,7 @@ class _SplashLoadingScreenState extends State<SplashLoadingScreen> {
   void checkUserIsLogged() async {
     logindata = await SharedPreferences.getInstance();
     newuser = (logindata.getBool('login') ?? true);
-    print(newuser);
+    print(logindata.get("email"));
     if (newuser == false) {
       Navigator.popAndPushNamed(context, HomePage.id);
     } else {
