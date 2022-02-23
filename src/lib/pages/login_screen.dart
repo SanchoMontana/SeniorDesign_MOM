@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (email != '' && password != '') {
                           print('Successful');
                           logindata.setBool('login', false);
-                          logindata.setString('email', email);
+                          logindata.setString('userID', email);
                         }
 
                         setState(() {

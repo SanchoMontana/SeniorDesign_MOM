@@ -132,7 +132,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       if (email != '' && password != '') {
                         print('Successful');
                         logindata.setBool('login', false);
-                        logindata.setString('email', email);
+                        logindata.setString('userID', email);
                       }
 
                       setState(() {
