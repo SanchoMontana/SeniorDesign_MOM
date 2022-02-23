@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/number_picker.dart';
 import 'package:demo/themes/constants.dart';
 
+//TODO: try to submit a class object and get it to appear on the home page OR try to make a user settings page to update an .ini file
+
 //TODO: put all of this in a "task" class
 bool daysPressed = false;
 bool timesPressed = false;
