@@ -33,6 +33,8 @@ class TaskCreation extends StatefulWidget {
 class _TaskCreationState extends State<TaskCreation> {
   final _formKey = GlobalKey<FormState>();
 
+  final _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +78,8 @@ class _TaskCreationState extends State<TaskCreation> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        const Text("Do you want to build or break your habit?"),
+                        //BUILD AND BREAK BUTTONS ARE HERE VVV
+                        /*const Text("Do you want to build or break your habit?"),
                         FormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
@@ -132,7 +135,7 @@ class _TaskCreationState extends State<TaskCreation> {
                               ],
                             );
                           },
-                        ),
+                        ),*/
                         const SizedBox(height: 20),
                         const Text("How do you want to be reminded?"),
                         FormField(
@@ -207,6 +210,7 @@ class _TaskCreationState extends State<TaskCreation> {
                               () {
                                 // ignore: avoid_print
                                 print('cancelling :(');
+                                Navigator.pop(context);
                               },
                               width: 140,
                             ),
@@ -215,13 +219,19 @@ class _TaskCreationState extends State<TaskCreation> {
                               () {
                                 if (_formKey.currentState!.validate()) {
                                   //TODO: call async function to store to database :)
-                                  FirebaseFirestore.instance
-                                      .collection('Tasks')
-                                      .add({
-                                    'timestamp':
-                                        Timestamp.fromDate(DateTime.now())
+                                  _firestore.collection('tasks').add({
+                                    'owner': 'ben@email.com',
+                                    'task_name': 'placeholder_name',
+                                    'tod':
+                                        '12:15 PM', //TODO: look into possible DateTime object or something to send here
+                                    'recurrence': 'placeholder_recurrence',
+                                    'completed': false,
+                                    'reminder': 'placeholder_reminder',
+                                    'timestamp': Timestamp.fromDate(DateTime
+                                        .now()) // TODO: see if you can prune this just to a time instead of date and year and all that
                                   });
                                   print('form is good :o)');
+                                  Navigator.pop(context);
                                 }
                               },
                               width: 140,
