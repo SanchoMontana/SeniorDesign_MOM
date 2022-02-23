@@ -130,7 +130,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       logindata = await SharedPreferences.getInstance();
 
                       if (email != '' && password != '') {
-                        print('Successfull');
+                        print('Successful');
                         logindata.setBool('login', false);
                         logindata.setString('email', email);
                       }

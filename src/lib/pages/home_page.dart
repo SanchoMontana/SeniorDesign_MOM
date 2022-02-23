@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   final _firestore = FirebaseFirestore.instance;
   // This doesnt work.
   // TODO: Only allow the stream to get tasks that belong to the user. Check the email logged in by using shared Prefs.
-  late SharedPreferences logindata = SharedPreferences.getInstance();
+  // late SharedPreferences logindata = SharedPreferences.getInstance();
 
   List<Widget> todayTasks = [];
   @override
@@ -42,18 +42,16 @@ class _HomePageState extends State<HomePage> {
                       final tasks = snapshot.data?.docs;
                       List<AnimatedTaskBubble> taskWidgets = [];
                       for (var task in tasks!) {
-                        if (task.data()["owner"] == logindata.get("email")) {
-                          final task_name = task.data()["task_name"];
-                          final tod = task.data()["tod"];
-                          final bool daily = task.data()["daily"];
+                        final task_name = task.data()["task_name"];
+                        final tod = task.data()["tod"];
+                        final bool daily = task.data()["daily"];
 
-                          final taskWidget = AnimatedTaskBubble(
-                            task_name: task_name,
-                            time: tod,
-                            today: daily,
-                          );
-                          taskWidgets.add(taskWidget);
-                        }
+                        final taskWidget = AnimatedTaskBubble(
+                          task_name: task_name,
+                          time: tod,
+                          today: daily,
+                        );
+                        taskWidgets.add(taskWidget);
                       }
                       return ListView(children: taskWidgets);
                     }
