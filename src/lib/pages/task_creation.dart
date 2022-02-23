@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:demo/custom_widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/number_picker.dart';
@@ -20,6 +22,8 @@ bool friPressed = false;
 bool satPressed = false;
 
 class TaskCreation extends StatefulWidget {
+  static String id = 'task_creation_nav';
+
   const TaskCreation({Key? key}) : super(key: key);
 
   @override
@@ -211,6 +215,12 @@ class _TaskCreationState extends State<TaskCreation> {
                               () {
                                 if (_formKey.currentState!.validate()) {
                                   //TODO: call async function to store to database :)
+                                  FirebaseFirestore.instance
+                                      .collection('Tasks')
+                                      .add({
+                                    'timestamp':
+                                        Timestamp.fromDate(DateTime.now())
+                                  });
                                   print('form is good :o)');
                                 }
                               },
