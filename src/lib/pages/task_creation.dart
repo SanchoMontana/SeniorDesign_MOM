@@ -162,7 +162,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                     LengthLimitingTextInputFormatter(2),
                                   ],
                                   decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
+                                    border: UnderlineInputBorder(),
                                     isDense: true,
                                     contentPadding: EdgeInsets.all(0),
                                   ),
