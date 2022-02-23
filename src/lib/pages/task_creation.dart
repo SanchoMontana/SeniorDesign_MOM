@@ -5,27 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/number_picker.dart';
 import 'package:demo/themes/constants.dart';
 
-final List<DayPickerButton> dayButtons = [
-  DayPickerButton('SU'),
-  DayPickerButton('MO'),
-  DayPickerButton('TU'),
-  DayPickerButton('WE'),
-  DayPickerButton('TH'),
-  DayPickerButton('FR'),
-  DayPickerButton('SA'),
-];
+//TODO: try to submit a class object and get it to appear on the home page OR try to make a user settings page to update an .ini file
 
+//TODO: put all of this in a "task" class
 bool daysPressed = false;
 bool timesPressed = false;
 bool buildPressed = false;
 bool breakPressed = false;
 
+bool sunPressed = false;
+bool monPressed = false;
+bool tuesPressed = false;
+bool wedPressed = false;
+bool thursPressed = false;
+bool friPressed = false;
+bool satPressed = false;
+
 class TaskCreation extends StatefulWidget {
-  
   static String id = 'task_creation_nav';
 
   const TaskCreation({Key? key}) : super(key: key);
-  
+
   @override
   _TaskCreationState createState() => _TaskCreationState();
 }
@@ -56,6 +56,7 @@ class _TaskCreationState extends State<TaskCreation> {
                         SizedBox(
                           width: 300,
                           child: TextFormField(
+                            //TODO: need to give this a text controller to actually pull the value to send to the database.
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
@@ -213,8 +214,13 @@ class _TaskCreationState extends State<TaskCreation> {
                               'Submit', //TODO: turn this into a form and don't let them hit submit until enough is selected
                               () {
                                 if (_formKey.currentState!.validate()) {
-                                  FirebaseFirestore.instance.collection('Tasks')
-                                    .add({'timestamp': Timestamp.fromDate(DateTime.now())});
+                                  //TODO: call async function to store to database :)
+                                  FirebaseFirestore.instance
+                                      .collection('Tasks')
+                                      .add({
+                                    'timestamp':
+                                        Timestamp.fromDate(DateTime.now())
+                                  });
                                   print('form is good :o)');
                                 }
                               },
@@ -248,62 +254,179 @@ class _DayPickerState extends State<DayPicker> {
     return FormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (!dayButtons.any((button) => button.btnSelected)) {
+        if (!sunPressed &&
+            !monPressed &&
+            !tuesPressed &&
+            !wedPressed &&
+            !thursPressed &&
+            !friPressed &&
+            !satPressed) {
           return 'Please select the day(s) you want to be reminded';
         }
       },
       builder: (FormFieldState state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const SizedBox(height: 20),
-            const Text("Select which days you want to be reminded:"),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: dayButtons,
-            ),
-            if (state.hasError) ...[
-              Text(state.errorText!, style: kErrorTextStyle)
-            ]
-          ],
+        return GestureDetector(
+          onTap: () {
+            state.validate();
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(height: 20),
+              const Text("Select which days you want to be reminded:"),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        sunPressed = !sunPressed;
+                        state.validate();
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: sunPressed
+                            ? kTextButtonSelectedColor
+                            : kTextButtonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('SU'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        monPressed = !monPressed;
+                        state.validate();
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: monPressed
+                            ? kTextButtonSelectedColor
+                            : kTextButtonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('MO'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        tuesPressed = !tuesPressed;
+                        state.validate();
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: tuesPressed
+                            ? kTextButtonSelectedColor
+                            : kTextButtonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('TU'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        wedPressed = !wedPressed;
+                        state.validate();
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: wedPressed
+                            ? kTextButtonSelectedColor
+                            : kTextButtonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('WE'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        thursPressed = !thursPressed;
+                        state.validate();
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: thursPressed
+                            ? kTextButtonSelectedColor
+                            : kTextButtonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('TH'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        friPressed = !friPressed;
+                        state.validate();
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: friPressed
+                            ? kTextButtonSelectedColor
+                            : kTextButtonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('FR'),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        satPressed = !satPressed;
+                        state.validate();
+                      });
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: satPressed
+                            ? kTextButtonSelectedColor
+                            : kTextButtonColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text('SA'),
+                    ),
+                  ),
+                ],
+              ),
+              if (state.hasError) ...[
+                Text(state.errorText!, style: kErrorTextStyle)
+              ]
+            ],
+          ),
         );
       },
-    );
-  }
-}
-
-class DayPickerButton extends StatefulWidget {
-  final String btnText;
-
-  bool btnSelected = false;
-
-  DayPickerButton(this.btnText, {Key? key}) : super(key: key);
-
-  @override
-  _DayPickerButtonState createState() => _DayPickerButtonState();
-}
-
-class _DayPickerButtonState extends State<DayPickerButton> {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.btnSelected = !widget.btnSelected;
-        });
-      },
-      child: Container(
-        width: 30,
-        height: 30,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color:
-              widget.btnSelected ? kTextButtonSelectedColor : kTextButtonColor,
-          shape: BoxShape.circle,
-        ),
-        child: Text(widget.btnText),
-      ),
     );
   }
 }
