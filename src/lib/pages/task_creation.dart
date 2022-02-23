@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:demo/custom_widgets/number_picker.dart';
 import 'package:demo/themes/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 bool daysPressed = false;
 bool timesPressed = false;
@@ -30,8 +31,20 @@ class TaskCreation extends StatefulWidget {
 
 class _TaskCreationState extends State<TaskCreation> {
   final _formKey = GlobalKey<FormState>();
-
   final _firestore = FirebaseFirestore.instance;
+  late SharedPreferences logindata;
+  late String userID;
+
+  @override
+  void initState() {
+    super.initState();
+    checkUserID();
+  }
+
+  void checkUserID() async {
+    logindata = await SharedPreferences.getInstance();
+    userID = logindata.get("userID").toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +207,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                   if (_formKey.currentState!.validate()) {
                                     //TODO: call async function to store to database :)
                                     _firestore.collection('tasks').add({
-                                      'owner': 'ben@email.com',
+                                      'owner': userID,
                                       'task_name': 'placeholder_name',
                                       'tod':
                                           '12:15 PM', //TODO: look into possible DateTime object or something to send here
