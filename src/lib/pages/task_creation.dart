@@ -35,6 +35,9 @@ class _TaskCreationState extends State<TaskCreation> {
   late SharedPreferences logindata;
   late String userID;
 
+  final TextEditingController _reminderNumController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +51,8 @@ class _TaskCreationState extends State<TaskCreation> {
 
   @override
   Widget build(BuildContext context) {
+    _reminderNumController.text = '1';
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -82,6 +87,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                   return null;
                                 }
                               },
+                              controller: _nameController,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 isDense: true,
@@ -95,9 +101,11 @@ class _TaskCreationState extends State<TaskCreation> {
                           //BUILD AND BREAK BUTTONS ARE HERE VVV
                           /*
                           const SizedBox(height: 20),
-                          const Text("Do you want to build or break your habit?"),
+                          const Text(
+                              "Do you want to build or break your habit?"),
                           FormField(
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (!buildPressed && !breakPressed) {
                                 return 'Please select build or break';
@@ -151,40 +159,81 @@ class _TaskCreationState extends State<TaskCreation> {
                                 ],
                               );
                             },
-                          ),*/
-
+                          ),
+                          */
                           DayPicker(),
                           const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Remind me'),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                width: 30,
-                                height: 20,
-                                child: TextFormField(
-                                  style: const TextStyle(fontSize: 15),
-                                  initialValue: '1',
-                                  textAlign: TextAlign.center,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  cursorWidth: 1,
-                                  cursorHeight: 20,
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(2),
-                                  ],
-                                  decoration: const InputDecoration(
-                                    border: UnderlineInputBorder(),
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.all(0),
+                          FormField(
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (_reminderNumController.value.text.trim() ==
+                                      '' ||
+                                  _reminderNumController.value.text
+                                      .trim()
+                                      .isEmpty) {
+                                return 'Please enter a number';
+                              }
+                            },
+                            builder: (FormFieldState state) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Remind me'),
+                                      const SizedBox(width: 10),
+                                      SizedBox(
+                                        width: 30,
+                                        height: 20,
+                                        //TODO: validate so this can't be blank, add controller to it
+                                        child: TextFormField(
+                                          onChanged: (value) =>
+                                              {state.validate()},
+                                          onEditingComplete: () {
+                                            state.validate();
+                                          },
+                                          controller: _reminderNumController,
+                                          style: const TextStyle(fontSize: 15),
+                                          textAlign: TextAlign.center,
+                                          textAlignVertical:
+                                              TextAlignVertical.bottom,
+                                          showCursor: false,
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(2),
+                                          ],
+                                          decoration: const InputDecoration(
+                                            errorStyle: TextStyle(height: 0),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Color(0xFF000000),
+                                                  width: 1.2),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Color(0xFF2196F3),
+                                                  width: 1.5),
+                                            ),
+                                            isDense: true,
+                                            contentPadding:
+                                                EdgeInsets.fromLTRB(1, 0, 0, 0),
+                                          ),
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text('time(s) per day selected'),
+                                    ],
                                   ),
-                                  keyboardType: TextInputType.number,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text('time(s) per day selected'),
-                            ],
+                                  if (state.hasError) ...[
+                                    Text(state.errorText!,
+                                        style: kErrorTextStyle),
+                                  ]
+                                ],
+                              );
+                            },
                           ),
                           const SizedBox(
                             height: 20,
@@ -205,13 +254,14 @@ class _TaskCreationState extends State<TaskCreation> {
                                 'Submit', //TODO: turn this into a form and don't let them hit submit until enough is selected
                                 () {
                                   if (_formKey.currentState!.validate()) {
-                                    //TODO: call async function to store to database :)
+                                    //TODO: destory text controllers properly
                                     _firestore.collection('tasks').add({
                                       'owner': userID,
-                                      'task_name': 'placeholder_name',
+                                      'task_name': _nameController.value.text,
                                       'tod':
                                           '12:15 PM', //TODO: look into possible DateTime object or something to send here
-                                      'recurrence': 'placeholder_recurrence',
+                                      'recurrence':
+                                          _reminderNumController.value.text,
                                       'completed': false,
                                       'reminder': 'placeholder_reminder',
                                       'timestamp': Timestamp.fromDate(DateTime
