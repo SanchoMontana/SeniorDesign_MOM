@@ -244,15 +244,24 @@ class _TaskCreationState extends State<TaskCreation> {
                               customTextButton(
                                 'Cancel',
                                 () {
-                                  // ignore: avoid_print
-                                  print('cancelling :(');
                                   Navigator.pop(context);
                                 },
                                 width: 140,
                               ),
                               customTextButton(
-                                'Submit', //TODO: turn this into a form and don't let them hit submit until enough is selected
+                                'Submit',
                                 () {
+                                  String recurrence = '';
+                                  if (_reminderNumController.value.text ==
+                                      '1') {
+                                    recurrence = 'daily';
+                                  } else if (_reminderNumController
+                                          .value.text ==
+                                      '7') {
+                                    recurrence = 'weekly';
+                                  } else {
+                                    recurrence = 'other';
+                                  }
                                   if (_formKey.currentState!.validate()) {
                                     //TODO: destory text controllers properly
                                     _firestore.collection('tasks').add({
@@ -260,14 +269,12 @@ class _TaskCreationState extends State<TaskCreation> {
                                       'task_name': _nameController.value.text,
                                       'tod':
                                           '12:15 PM', //TODO: look into possible DateTime object or something to send here
-                                      'recurrence':
-                                          _reminderNumController.value.text,
+                                      'recurrence': recurrence,
                                       'completed': false,
                                       'reminder': 'placeholder_reminder',
-                                      'timestamp': Timestamp.fromDate(DateTime
-                                          .now()) // TODO: see if you can prune this just to a time instead of date and year and all that
+                                      'timestamp':
+                                          Timestamp.fromDate(DateTime.now()),
                                     });
-                                    print('form is good :o)');
                                     Navigator.pop(context);
                                   }
                                 },
