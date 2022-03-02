@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:demo/custom_widgets/custom_text_button.dart';
@@ -37,6 +39,8 @@ class _TaskCreationState extends State<TaskCreation> {
   String reminderValue = '15 minutes';
   String? taskNameErrorText;
 
+  TimeOfDay selectedTime = TimeOfDay.now();
+
   final TextEditingController _recurrenceController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
@@ -44,6 +48,36 @@ class _TaskCreationState extends State<TaskCreation> {
   void initState() {
     super.initState();
     checkUserID();
+  }
+
+  selectTime(BuildContext context) async {
+    final TimeOfDay? timeOfDay =
+        await showTimePicker(context: context, initialTime: selectedTime);
+
+    if (timeOfDay != null) {
+      setState(() {
+        selectedTime = timeOfDay;
+      });
+    }
+  }
+
+  getFormattedSelectedTime() {
+    String hour = "${selectedTime.hourOfPeriod}";
+    String minute;
+    String period;
+    if (selectedTime.minute < 10) {
+      minute = "0${selectedTime.minute}";
+    } else {
+      minute = "${selectedTime.minute}";
+    }
+
+    if (selectedTime.hour < 12) {
+      period = 'AM';
+    } else {
+      period = 'PM';
+    }
+
+    return "$hour:$minute $period";
   }
 
   void checkUserID() async {
@@ -171,7 +205,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                             ),
                                           ),
                                         ),
-                                        const Text('time(s) per day selected'),
+                                        const Text('time(s) per day selected.'),
                                       ],
                                     ),
                                   ),
@@ -184,8 +218,49 @@ class _TaskCreationState extends State<TaskCreation> {
                             },
                           ),
 
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SizedBox(
+                              height: 1,
+                              width: 150,
+                              child: Container(color: Colors.black),
+                            ),
+                          ),
                           //TODO: add some sort of time picker here, make the wording so that it's the first reminder of the first day.
                           // in theory when they complete the task they would select the next time they want to be reminded
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("First reminder for this task -  "),
+                              GestureDetector(
+                                onTap: () {
+                                  selectTime(context);
+                                },
+                                child: Container(
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4.0)),
+                                      border: Border.all(color: Colors.black)),
+                                  child: Center(
+                                    child: Text(
+                                      getFormattedSelectedTime(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                            child: SizedBox(
+                              height: 1,
+                              width: 150,
+                              child: Container(color: Colors.black),
+                            ),
+                          ),
                           //REMINDER DROPDOWN HERE
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -220,7 +295,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                   );
                                 }).toList(),
                               ),
-                              const Text('before this task\'s time'),
+                              const Text('before this task\'s time.'),
                             ],
                           ),
 
@@ -252,8 +327,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                     _firestore.collection('tasks').add({
                                       'owner': userID,
                                       'task_name': _nameController.value.text,
-                                      'tod':
-                                          '12:15 PM', //TODO: look into possible DateTime object or something to send here
+                                      'tod': selectedTime.toString(),
                                       'recurrence': recurrence,
                                       'completed': false,
                                       'reminder': reminderValue,
