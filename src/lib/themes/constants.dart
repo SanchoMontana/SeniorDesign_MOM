@@ -23,3 +23,31 @@ final ButtonStyle kTextButtonSelectedTheme = ButtonStyle(
 );
 
 const TextStyle kErrorTextStyle = TextStyle(color: Color(0xFFd13030));
+
+const kErrorBorder = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: Color(0xFFd13030),
+    width: 1.2,
+  ),
+);
+
+const kEnabledBorder = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: Color(0xFF000000),
+    width: 1,
+  ),
+);
+
+const kFocusedBorder = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: Color(0xFF2196F3),
+    width: 1,
+  ),
+);
+
+const kFocusedErrorBorder = OutlineInputBorder(
+  borderSide: BorderSide(
+    color: Color(0xFFd13030),
+    width: 1,
+  ),
+);

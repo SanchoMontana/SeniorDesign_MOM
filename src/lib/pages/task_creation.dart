@@ -35,6 +35,7 @@ class _TaskCreationState extends State<TaskCreation> {
   late SharedPreferences logindata;
   late String userID;
   String reminderValue = '15 minutes';
+  String? taskNameErrorText;
 
   final TextEditingController _recurrenceController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -83,85 +84,28 @@ class _TaskCreationState extends State<TaskCreation> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
+                                  taskNameErrorText = '';
                                   return 'Please name your task';
                                 } else {
+                                  taskNameErrorText = null;
                                   return null;
                                 }
                               },
                               controller: _nameController,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                errorText: taskNameErrorText,
+                                errorBorder: kErrorBorder,
+                                enabledBorder: kEnabledBorder,
+                                focusedBorder: kFocusedBorder,
+                                focusedErrorBorder: kFocusedErrorBorder,
                                 isDense: true,
                                 labelText: 'Task Name',
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 10),
                               ),
                             ),
                           ),
 
-                          //BUILD AND BREAK BUTTONS ARE HERE VVV
-                          /*
-                          const SizedBox(height: 20),
-                          const Text(
-                              "Do you want to build or break your habit?"),
-                          FormField(
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (!buildPressed && !breakPressed) {
-                                return 'Please select build or break';
-                              }
-                            },
-                            builder: (FormFieldState state) {
-                              return Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      SizedBox(
-                                        width: 140,
-                                        child: TextButton(
-                                          style: buildPressed
-                                              ? kTextButtonSelectedTheme
-                                              : null,
-                                          child: const Text("Build 👷‍♂️"),
-                                          onPressed: () {
-                                            setState(() {
-                                              buildPressed = true;
-                                              breakPressed = false;
-                                              state.validate();
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 140,
-                                        child: TextButton(
-                                          style: breakPressed
-                                              ? kTextButtonSelectedTheme
-                                              : null,
-                                          child: const Text("Break 🔨"),
-                                          onPressed: () {
-                                            setState(() {
-                                              buildPressed = false;
-                                              breakPressed = true;
-                                              state.validate();
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  if (state.hasError) ...[
-                                    Text(state.errorText!,
-                                        style: kErrorTextStyle),
-                                  ]
-                                ],
-                              );
-                            },
-                          ),
-                          */
                           DayPicker(),
                           const SizedBox(height: 20),
 
@@ -181,66 +125,55 @@ class _TaskCreationState extends State<TaskCreation> {
                             builder: (FormFieldState state) {
                               return Column(
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text('Remind me'),
-                                      SizedBox(
-                                        width: 30,
-                                        height: 20,
-                                        //TODO: validate so this can't be blank, add controller to it
-                                        child: TextFormField(
-                                          onChanged: (value) =>
-                                              {state.validate()},
-                                          onEditingComplete: () {
-                                            state.validate();
-                                          },
-                                          controller: _recurrenceController,
-                                          style: const TextStyle(fontSize: 15),
-                                          textAlign: TextAlign.center,
-                                          textAlignVertical:
-                                              TextAlignVertical.bottom,
-                                          showCursor: false,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(2),
-                                            FilteringTextInputFormatter
-                                                .digitsOnly
-                                          ],
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                            errorText:
-                                                state.hasError ? '' : null,
-                                            errorBorder:
-                                                const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFd13030),
-                                                width: 1.2,
-                                              ),
+                                  SizedBox(
+                                    width: 300,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text('Remind me'),
+                                        SizedBox(
+                                          width: 30,
+                                          height: 20,
+                                          child: TextFormField(
+                                            onChanged: (value) =>
+                                                {state.validate()},
+                                            onEditingComplete: () {
+                                              state.validate();
+                                            },
+                                            controller: _recurrenceController,
+                                            style:
+                                                const TextStyle(fontSize: 15),
+                                            textAlign: TextAlign.center,
+                                            textAlignVertical:
+                                                TextAlignVertical.bottom,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  2),
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
+                                            ],
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                              errorText:
+                                                  state.hasError ? '' : null,
+                                              errorBorder: kErrorBorder,
+                                              enabledBorder: kEnabledBorder,
+                                              focusedBorder: kFocusedBorder,
+                                              focusedErrorBorder:
+                                                  kFocusedErrorBorder,
+                                              isDense: true,
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      1, 0, 0, 0),
                                             ),
-                                            enabledBorder:
-                                                const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF000000),
-                                                  width: 1.2),
-                                            ),
-                                            focusedBorder:
-                                                const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF2196F3),
-                                                  width: 1.5),
-                                            ),
-                                            isDense: true,
-                                            contentPadding:
-                                                const EdgeInsets.fromLTRB(
-                                                    1, 0, 0, 0),
                                           ),
                                         ),
-                                      ),
-                                      const Text('time(s) per day selected'),
-                                    ],
+                                        const Text('time(s) per day selected'),
+                                      ],
+                                    ),
                                   ),
                                   if (state.hasError) ...[
                                     Text(state.errorText!,
@@ -251,6 +184,8 @@ class _TaskCreationState extends State<TaskCreation> {
                             },
                           ),
 
+                          //TODO: add some sort of time picker here, make the wording so that it's the first reminder of the first day.
+                          // in theory when they complete the task they would select the next time they want to be reminded
                           //REMINDER DROPDOWN HERE
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -535,45 +470,3 @@ class _DayPickerState extends State<DayPicker> {
     );
   }
 }
-
-//This is for the certain days and certain times buttons
-/*
-Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    SizedBox(
-                                      width: 140,
-                                      child: TextButton(
-                                        style: daysPressed
-                                            ? kTextButtonSelectedTheme
-                                            : null,
-                                        child: const Text("Certain Days"),
-                                        onPressed: () {
-                                          setState(() {
-                                            daysPressed = true;
-                                            timesPressed = false;
-                                            state.validate();
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 140,
-                                      child: TextButton(
-                                        style: timesPressed
-                                            ? kTextButtonSelectedTheme
-                                            : null,
-                                        child: const Text("Certain # of Times"),
-                                        onPressed: () {
-                                          setState(() {
-                                            daysPressed = false;
-                                            timesPressed = true;
-                                            state.validate();
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-*/
