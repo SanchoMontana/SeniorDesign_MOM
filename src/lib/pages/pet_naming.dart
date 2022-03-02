@@ -29,7 +29,7 @@ class PetNaming extends StatefulWidget {
 
 class _PetNaming extends State<PetNaming> {
   late Pet currentPet;
-  late String currentName;
+  late String currentName = "";
 
   _PetNaming(Pet petVar);
 
@@ -39,7 +39,7 @@ class _PetNaming extends State<PetNaming> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => PetNaming(
+              builder: (context) => PetFinalization(
                     currentPet: currentPet,
                   )));
     });
@@ -52,22 +52,28 @@ class _PetNaming extends State<PetNaming> {
   }
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: Card(
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(
           child: Center(
-              child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter a name for your new pet',
-                ),
-                onChanged: (value) => currentName,
-              ),
-              ElevatedButton(
-                  onPressed: _setPetName, child: const Text('Thats thier name'))
-            ],
-          )),
+              child: FractionallySizedBox(
+                  widthFactor: .5,
+                  heightFactor: .25,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Enter a name for your new pet',
+                        ),
+                        onChanged: (value) => currentName,
+                      ),
+                      ElevatedButton(
+                          onPressed: _setPetName,
+                          child: const Text('Thats thier name'))
+                    ],
+                  ))),
         ),
       );
 }

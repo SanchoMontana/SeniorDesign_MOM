@@ -1,8 +1,0 @@
-version: "Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)"
-options: "d587bc40a4a75e5d4ae77b2063253da7ef624d0b6946f6e8c2da19257daccb25"
-build_start_time: [1645111508, 567305088]
-build_end_time: [1645111509, 381764888]
-inputs:
-  "/Users/TreeBeard/Code/SeniorDesign/SeniorDesign_MOM/SeniorDesign_MOM/src/macos/Flutter/GeneratedPluginRegistrant.swift": [1645111483, 469225406]
-  "/Users/TreeBeard/Code/SeniorDesign/SeniorDesign_MOM/SeniorDesign_MOM/src/macos/Runner/AppDelegate.swift": [1645111381, 686555862]
-  "/Users/TreeBeard/Code/SeniorDesign/SeniorDesign_MOM/SeniorDesign_MOM/src/macos/Runner/MainFlutterWindow.swift": [1645111381, 699082374]

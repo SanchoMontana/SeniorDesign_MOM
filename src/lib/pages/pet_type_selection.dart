@@ -37,68 +37,58 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
           body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-            GestureDetector(
-                onHorizontalDragStart: (DragStartDetails details) {
-                  print('started');
-                },
-                onHorizontalDragUpdate: (DragUpdateDetails details) {
-                  print(details.delta.dx);
-                },
-                onHorizontalDragEnd: (DragEndDetails details) {
-                  print('ended');
-                },
-                child: CarouselSlider(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  items: [
-                    //1st Image of Slider
-                    InkWell(
-                      onTap: () {
-                        // update data
-                        newPet.type = PetType.bird;
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PetNaming(
-                                      currentPet: newPet,
-                                    )));
-                      },
-                      splashColor: Colors.purple,
-                      child: const Image(image: AssetImage('images/birb.jpg')),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        newPet.type = PetType.cat;
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PetNaming(
-                                      currentPet: newPet,
-                                    )));
-                      },
-                      splashColor: Colors.purple,
-                      child: const Image(image: AssetImage('images/cat.jpg')),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        newPet.type = PetType.dog;
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PetNaming(
-                                      currentPet: newPet,
-                                    )));
-                      },
-                      splashColor: Colors.purple,
-                      child: const Image(image: AssetImage('images/dog.jpg')),
-                    ),
-                  ],
-                  carouselController: buttonCarouselController,
-                  options: CarouselOptions(
-                    autoPlay: false,
-                    enlargeCenterPage: true,
-                  ),
-                )),
+              children: [
+            const Text('Select your Pet Type'),
+            CarouselSlider(
+              items: [
+                //1st Image of Slider
+                InkWell(
+                  onTap: () {
+                    // update data
+                    newPet.type = PetType.bird;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PetNaming(
+                                  currentPet: newPet,
+                                )));
+                  },
+                  splashColor: Colors.purple,
+                  child: const Image(image: AssetImage('images/birb.jpg')),
+                ),
+                InkWell(
+                  onTap: () {
+                    newPet.type = PetType.cat;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PetNaming(
+                                  currentPet: newPet,
+                                )));
+                  },
+                  splashColor: Colors.purple,
+                  child: const Image(image: AssetImage('images/cat.jpg')),
+                ),
+                InkWell(
+                  onTap: () {
+                    newPet.type = PetType.dog;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PetNaming(
+                                  currentPet: newPet,
+                                )));
+                  },
+                  splashColor: Colors.purple,
+                  child: const Image(image: AssetImage('images/dog.jpg')),
+                ),
+              ],
+              carouselController: buttonCarouselController,
+              options: CarouselOptions(
+                autoPlay: false,
+                enlargeCenterPage: true,
+              ),
+            ),
             ElevatedButton(
               onPressed: () => buttonCarouselController.nextPage(
                   duration: const Duration(milliseconds: 300),
