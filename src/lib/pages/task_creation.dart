@@ -34,8 +34,9 @@ class _TaskCreationState extends State<TaskCreation> {
   final _firestore = FirebaseFirestore.instance;
   late SharedPreferences logindata;
   late String userID;
+  String reminderValue = '15 minutes';
 
-  final TextEditingController _reminderNumController = TextEditingController();
+  final TextEditingController _recurrenceController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
   @override
@@ -51,7 +52,7 @@ class _TaskCreationState extends State<TaskCreation> {
 
   @override
   Widget build(BuildContext context) {
-    _reminderNumController.text = '1';
+    _recurrenceController.text = '1';
 
     return Scaffold(
       body: Center(
@@ -163,13 +164,15 @@ class _TaskCreationState extends State<TaskCreation> {
                           */
                           DayPicker(),
                           const SizedBox(height: 20),
+
+                          //REMINDER NUMBER HERE
                           FormField(
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              if (_reminderNumController.value.text.trim() ==
+                              if (_recurrenceController.value.text.trim() ==
                                       '' ||
-                                  _reminderNumController.value.text
+                                  _recurrenceController.value.text
                                       .trim()
                                       .isEmpty) {
                                 return 'Please enter a number';
@@ -179,12 +182,12 @@ class _TaskCreationState extends State<TaskCreation> {
                               return Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Remind me'),
-                                      const SizedBox(width: 10),
+                                      const Text('Remind me'),
                                       SizedBox(
                                         width: 30,
                                         height: 20,
@@ -195,7 +198,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                           onEditingComplete: () {
                                             state.validate();
                                           },
-                                          controller: _reminderNumController,
+                                          controller: _recurrenceController,
                                           style: const TextStyle(fontSize: 15),
                                           textAlign: TextAlign.center,
                                           textAlignVertical:
@@ -203,28 +206,40 @@ class _TaskCreationState extends State<TaskCreation> {
                                           showCursor: false,
                                           inputFormatters: [
                                             LengthLimitingTextInputFormatter(2),
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
                                           ],
-                                          decoration: const InputDecoration(
-                                            errorStyle: TextStyle(height: 0),
-                                            enabledBorder: OutlineInputBorder(
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                            errorText:
+                                                state.hasError ? '' : null,
+                                            errorBorder:
+                                                const OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0xFFd13030),
+                                                width: 1.2,
+                                              ),
+                                            ),
+                                            enabledBorder:
+                                                const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Color(0xFF000000),
                                                   width: 1.2),
                                             ),
-                                            focusedBorder: OutlineInputBorder(
+                                            focusedBorder:
+                                                const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Color(0xFF2196F3),
                                                   width: 1.5),
                                             ),
                                             isDense: true,
                                             contentPadding:
-                                                EdgeInsets.fromLTRB(1, 0, 0, 0),
+                                                const EdgeInsets.fromLTRB(
+                                                    1, 0, 0, 0),
                                           ),
-                                          keyboardType: TextInputType.number,
                                         ),
                                       ),
-                                      const SizedBox(width: 10),
-                                      Text('time(s) per day selected'),
+                                      const Text('time(s) per day selected'),
                                     ],
                                   ),
                                   if (state.hasError) ...[
@@ -235,9 +250,46 @@ class _TaskCreationState extends State<TaskCreation> {
                               );
                             },
                           ),
-                          const SizedBox(
-                            height: 20,
+
+                          //REMINDER DROPDOWN HERE
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Text('Remind me'),
+                              DropdownButton<String>(
+                                alignment: AlignmentDirectional.center,
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_rounded,
+                                  color: Colors.black54,
+                                ),
+                                value: reminderValue,
+                                style: const TextStyle(color: Colors.black),
+                                underline: Container(
+                                  height: 2,
+                                  color: kTextButtonColor,
+                                ),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    reminderValue = newValue!;
+                                  });
+                                },
+                                items: <String>[
+                                  '15 minutes',
+                                  '30 minutes',
+                                  '1 hour',
+                                  '2 hours'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                              const Text('before this task\'s time'),
+                            ],
                           ),
+
+                          //CANCEL AND SUBMIT BUTTONS HERE
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -252,11 +304,9 @@ class _TaskCreationState extends State<TaskCreation> {
                                 'Submit',
                                 () {
                                   String recurrence = '';
-                                  if (_reminderNumController.value.text ==
-                                      '1') {
+                                  if (_recurrenceController.value.text == '1') {
                                     recurrence = 'daily';
-                                  } else if (_reminderNumController
-                                          .value.text ==
+                                  } else if (_recurrenceController.value.text ==
                                       '7') {
                                     recurrence = 'weekly';
                                   } else {
@@ -271,7 +321,7 @@ class _TaskCreationState extends State<TaskCreation> {
                                           '12:15 PM', //TODO: look into possible DateTime object or something to send here
                                       'recurrence': recurrence,
                                       'completed': false,
-                                      'reminder': 'placeholder_reminder',
+                                      'reminder': reminderValue,
                                       'timestamp':
                                           Timestamp.fromDate(DateTime.now()),
                                     });
