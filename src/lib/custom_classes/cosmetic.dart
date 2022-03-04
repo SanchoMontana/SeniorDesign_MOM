@@ -15,4 +15,18 @@ class Cosmetic {
   late String displayName;
   late String fullName;
   Cosmetic(this.ID, this.type, this.displayName, this.fullName);
+  @override
+  String toString() {
+    // ignore: unnecessary_this
+    switch (this.type) {
+      case CosmeticType.hat:
+        return "hat";
+      case CosmeticType.body:
+        return "body";
+      case CosmeticType.shoes:
+        return "shoes";
+      case CosmeticType.accessory:
+        return "accessory";
+    }
+  }
 }

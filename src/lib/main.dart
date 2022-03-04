@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:demo/themes/constants.dart';
-import 'pages/pet_type_selection.dart';
+import 'pages/pet_intro.dart';
 
 void main() {
   // if user profile file has data
@@ -9,6 +9,6 @@ void main() {
   runApp(MaterialApp(
     theme: kDefaultTheme,
     title: 'Landing Page',
-    home: const PetTypeSelection(),
+    home: const PetIntro(),
   ));
 }

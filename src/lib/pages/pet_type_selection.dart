@@ -38,7 +38,26 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-            const Text('Select your Pet Type'),
+            Text(
+              'First Decision is a BIG one',
+              style: TextStyle(
+                  color: Colors.purple[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Text(
+              'What kind of animal should our new friend be?',
+              style: TextStyle(
+                  color: Colors.purple[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
             CarouselSlider(
               items: [
                 //1st Image of Slider
@@ -54,7 +73,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                                 )));
                   },
                   splashColor: Colors.purple,
-                  child: const Image(image: AssetImage('images/birb.jpg')),
+                  child: const Image(image: AssetImage('images/bird.png')),
                 ),
                 InkWell(
                   onTap: () {
@@ -67,7 +86,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                                 )));
                   },
                   splashColor: Colors.purple,
-                  child: const Image(image: AssetImage('images/cat.jpg')),
+                  child: const Image(image: AssetImage('images/cat.png')),
                 ),
                 InkWell(
                   onTap: () {
@@ -89,11 +108,14 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                 enlargeCenterPage: true,
               ),
             ),
+            const SizedBox(
+              height: 25,
+            ),
             ElevatedButton(
               onPressed: () => buttonCarouselController.nextPage(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.linear),
-              child: const Text('→'),
+              child: const Text('Not Quite Right'),
             )
           ]));
 }

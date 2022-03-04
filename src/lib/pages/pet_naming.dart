@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:demo/custom_classes/pet.dart';
-import 'pet_finalization.dart';
+import 'pet_free_cosmetic.dart';
 
 class PetNamingClass extends StatelessWidget {
   final Pet currentPet;
@@ -30,6 +30,7 @@ class PetNaming extends StatefulWidget {
 class _PetNaming extends State<PetNaming> {
   late Pet currentPet;
   late String currentName = "";
+  late String imagePath = "images/";
 
   _PetNaming(Pet petVar);
 
@@ -39,7 +40,7 @@ class _PetNaming extends State<PetNaming> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => PetFinalization(
+              builder: (context) => PetCosmeticSelection(
                     currentPet: currentPet,
                   )));
     });
@@ -48,6 +49,18 @@ class _PetNaming extends State<PetNaming> {
   @override
   initState() {
     currentPet = super.widget.currentPet;
+    switch (currentPet.type) {
+      case PetType.bird:
+        imagePath += "bird";
+        break;
+      case PetType.cat:
+        imagePath += "cat";
+        break;
+      case PetType.dog:
+        imagePath += "dog";
+        break;
+    }
+    imagePath += ".png";
     super.initState();
   }
 
@@ -55,25 +68,41 @@ class _PetNaming extends State<PetNaming> {
   Widget build(BuildContext context) => Scaffold(
         body: Center(
           child: Center(
-              child: FractionallySizedBox(
-                  widthFactor: .5,
-                  heightFactor: .25,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Enter a name for your new pet',
-                        ),
-                        onChanged: (value) => currentName,
-                      ),
-                      ElevatedButton(
-                          onPressed: _setPetName,
-                          child: const Text('Thats thier name'))
-                    ],
-                  ))),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Great Choice! Now what should we call them?',
+                  style: TextStyle(
+                      color: Colors.purple[600],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24)),
+              SizedBox(
+                width: 400,
+                child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'name',
+                    ),
+                    onChanged: (value) {
+                      currentName = value;
+                    }),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              SizedBox(
+                width: 400,
+                height: 400,
+                child: Image(image: AssetImage(imagePath)),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              ElevatedButton(
+                  onPressed: _setPetName, child: const Text('Thats thier name'))
+            ],
+          )),
         ),
       );
 }
