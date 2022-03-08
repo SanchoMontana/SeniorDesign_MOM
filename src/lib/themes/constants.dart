@@ -51,3 +51,22 @@ const kFocusedErrorBorder = OutlineInputBorder(
     width: 1,
   ),
 );
+
+kGetFormattedTimeOfDay(TimeOfDay tod) {
+  String hour = "${tod.hourOfPeriod}";
+  String minute;
+  String period;
+  if (tod.minute < 10) {
+    minute = "0${tod.minute}";
+  } else {
+    minute = "${tod.minute}";
+  }
+
+  if (tod.hour < 12) {
+    period = 'AM';
+  } else {
+    period = 'PM';
+  }
+
+  return "$hour:$minute $period";
+}
