@@ -129,14 +129,13 @@ class _HomePageState extends State<HomePage> {
             final tasks = snapshot.data?.docs;
             List<AnimatedTaskBubble> taskWidgets = [];
             for (var task in tasks!) {
-              final task_name = task.data()["task_name"]; //["task_name"];
-              final tod = task.data()["tod"];
-              final bool daily = task.data()["daily"];
-
+              final task_name = task.get("task_name"); //["task_name"];
+              final tod = task.get("tod");
+              // TODO: Figure out if the task is for today...
               final taskWidget = AnimatedTaskBubble(
                 task_name: task_name,
                 time: tod,
-                today: daily,
+                today: true,
               );
               taskWidgets.add(taskWidget);
             }
