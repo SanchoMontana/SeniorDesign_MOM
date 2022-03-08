@@ -61,25 +61,6 @@ class _TaskCreationState extends State<TaskCreation> {
     }
   }
 
-  getFormattedSelectedTime() {
-    String hour = "${selectedTime.hourOfPeriod}";
-    String minute;
-    String period;
-    if (selectedTime.minute < 10) {
-      minute = "0${selectedTime.minute}";
-    } else {
-      minute = "${selectedTime.minute}";
-    }
-
-    if (selectedTime.hour < 12) {
-      period = 'AM';
-    } else {
-      period = 'PM';
-    }
-
-    return "$hour:$minute $period";
-  }
-
   void checkUserID() async {
     logindata = await SharedPreferences.getInstance();
     userID = logindata.get("userID").toString();
@@ -89,267 +70,260 @@ class _TaskCreationState extends State<TaskCreation> {
   Widget build(BuildContext context) {
     _recurrenceController.text = '1';
 
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 350,
-              child: Center(
-                child: Form(
-                  key: _formKey,
-                  child: GestureDetector(
-                    onTap: () =>
-                        FocusScope.of(context).requestFocus(FocusNode()),
-                    child: Card(
-                      child: Column(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text("Create A Task"),
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: TextFormField(
-                              //TODO: need to give this a text controller to actually pull the value to send to the database.
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  taskNameErrorText = '';
-                                  return 'Please name your task';
-                                } else {
-                                  taskNameErrorText = null;
-                                  return null;
-                                }
-                              },
-                              controller: _nameController,
-                              decoration: InputDecoration(
-                                errorText: taskNameErrorText,
-                                errorBorder: kErrorBorder,
-                                enabledBorder: kEnabledBorder,
-                                focusedBorder: kFocusedBorder,
-                                focusedErrorBorder: kFocusedErrorBorder,
-                                isDense: true,
-                                labelText: 'Task Name',
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                              ),
-                            ),
-                          ),
-
-                          DayPicker(),
-                          const SizedBox(height: 20),
-
-                          //REMINDER NUMBER HERE
-                          FormField(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 350,
+            child: Center(
+              child: Form(
+                key: _formKey,
+                child: GestureDetector(
+                  onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                  child: Card(
+                    child: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text("Create A Task"),
+                        ),
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            //TODO: need to give this a text controller to actually pull the value to send to the database.
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              if (_recurrenceController.value.text.trim() ==
-                                      '' ||
-                                  _recurrenceController.value.text
-                                      .trim()
-                                      .isEmpty) {
-                                return 'Please enter a number';
+                              if (value == null || value.isEmpty) {
+                                taskNameErrorText = '';
+                                return 'Please name your task';
+                              } else {
+                                taskNameErrorText = null;
+                                return null;
                               }
                             },
-                            builder: (FormFieldState state) {
-                              return Column(
-                                children: [
-                                  SizedBox(
-                                    width: 300,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text('Remind me'),
-                                        SizedBox(
-                                          width: 30,
-                                          height: 20,
-                                          child: TextFormField(
-                                            onChanged: (value) =>
-                                                {state.validate()},
-                                            onEditingComplete: () {
-                                              state.validate();
-                                            },
-                                            controller: _recurrenceController,
-                                            style:
-                                                const TextStyle(fontSize: 15),
-                                            textAlign: TextAlign.center,
-                                            textAlignVertical:
-                                                TextAlignVertical.bottom,
-                                            inputFormatters: [
-                                              LengthLimitingTextInputFormatter(
-                                                  2),
-                                              FilteringTextInputFormatter
-                                                  .digitsOnly
-                                            ],
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                              errorText:
-                                                  state.hasError ? '' : null,
-                                              errorBorder: kErrorBorder,
-                                              enabledBorder: kEnabledBorder,
-                                              focusedBorder: kFocusedBorder,
-                                              focusedErrorBorder:
-                                                  kFocusedErrorBorder,
-                                              isDense: true,
-                                              contentPadding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      1, 0, 0, 0),
-                                            ),
+                            controller: _nameController,
+                            decoration: InputDecoration(
+                              errorText: taskNameErrorText,
+                              errorBorder: kErrorBorder,
+                              enabledBorder: kEnabledBorder,
+                              focusedBorder: kFocusedBorder,
+                              focusedErrorBorder: kFocusedErrorBorder,
+                              isDense: true,
+                              labelText: 'Task Name',
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                            ),
+                          ),
+                        ),
+
+                        DayPicker(),
+                        const SizedBox(height: 20),
+
+                        //REMINDER NUMBER HERE
+                        FormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (_recurrenceController.value.text.trim() == '' ||
+                                _recurrenceController.value.text
+                                    .trim()
+                                    .isEmpty) {
+                              return 'Please enter a number';
+                            }
+                          },
+                          builder: (FormFieldState state) {
+                            return Column(
+                              children: [
+                                SizedBox(
+                                  width: 300,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text('Remind me'),
+                                      SizedBox(
+                                        width: 30,
+                                        height: 20,
+                                        child: TextFormField(
+                                          onChanged: (value) =>
+                                              {state.validate()},
+                                          onEditingComplete: () {
+                                            state.validate();
+                                          },
+                                          controller: _recurrenceController,
+                                          style: const TextStyle(fontSize: 15),
+                                          textAlign: TextAlign.center,
+                                          textAlignVertical:
+                                              TextAlignVertical.bottom,
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(2),
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                            errorText:
+                                                state.hasError ? '' : null,
+                                            errorBorder: kErrorBorder,
+                                            enabledBorder: kEnabledBorder,
+                                            focusedBorder: kFocusedBorder,
+                                            focusedErrorBorder:
+                                                kFocusedErrorBorder,
+                                            isDense: true,
+                                            contentPadding:
+                                                const EdgeInsets.fromLTRB(
+                                                    1, 0, 0, 0),
                                           ),
                                         ),
-                                        const Text('time(s) per day selected.'),
-                                      ],
-                                    ),
+                                      ),
+                                      const Text('time(s) per day selected.'),
+                                    ],
                                   ),
-                                  if (state.hasError) ...[
-                                    Text(state.errorText!,
-                                        style: kErrorTextStyle),
-                                  ]
-                                ],
-                              );
-                            },
-                          ),
+                                ),
+                                if (state.hasError) ...[
+                                  Text(state.errorText!,
+                                      style: kErrorTextStyle),
+                                ]
+                              ],
+                            );
+                          },
+                        ),
 
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: SizedBox(
-                              height: 1,
-                              width: 150,
-                              child: Container(color: Colors.black),
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: SizedBox(
+                            height: 1,
+                            width: 150,
+                            child: Container(color: Colors.black),
                           ),
-                          //TODO: add some sort of time picker here, make the wording so that it's the first reminder of the first day.
-                          // in theory when they complete the task they would select the next time they want to be reminded
+                        ),
+                        //TODO: add some sort of time picker here, make the wording so that it's the first reminder of the first day.
+                        // in theory when they complete the task they would select the next time they want to be reminded
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("First reminder for this task -  "),
-                              GestureDetector(
-                                onTap: () {
-                                  selectTime(context);
-                                },
-                                child: Container(
-                                  width: 70,
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(4.0)),
-                                      border: Border.all(color: Colors.black)),
-                                  child: Center(
-                                    child: Text(
-                                      getFormattedSelectedTime(),
-                                    ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("First reminder for this task -  "),
+                            GestureDetector(
+                              onTap: () {
+                                selectTime(context);
+                              },
+                              child: Container(
+                                width: 70,
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4.0)),
+                                    border: Border.all(color: Colors.black)),
+                                child: Center(
+                                  child: Text(
+                                    kGetFormattedTimeOfDay(selectedTime),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                            child: SizedBox(
-                              height: 1,
-                              width: 150,
-                              child: Container(color: Colors.black),
                             ),
+                          ],
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                          child: SizedBox(
+                            height: 1,
+                            width: 150,
+                            child: Container(color: Colors.black),
                           ),
-                          //REMINDER DROPDOWN HERE
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const Text('Remind me'),
-                              DropdownButton<String>(
-                                alignment: AlignmentDirectional.center,
-                                icon: const Icon(
-                                  Icons.arrow_drop_down_rounded,
-                                  color: Colors.black54,
-                                ),
-                                value: reminderValue,
-                                style: const TextStyle(color: Colors.black),
-                                underline: Container(
-                                  height: 2,
-                                  color: kTextButtonColor,
-                                ),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    reminderValue = newValue!;
+                        ),
+                        //REMINDER DROPDOWN HERE
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text('Remind me'),
+                            DropdownButton<String>(
+                              alignment: AlignmentDirectional.center,
+                              icon: const Icon(
+                                Icons.arrow_drop_down_rounded,
+                                color: Colors.black54,
+                              ),
+                              value: reminderValue,
+                              style: const TextStyle(color: Colors.black),
+                              underline: Container(
+                                height: 2,
+                                color: kTextButtonColor,
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  reminderValue = newValue!;
+                                });
+                              },
+                              items: <String>[
+                                '15 minutes',
+                                '30 minutes',
+                                '1 hour',
+                                '2 hours'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                            const Text('before this task\'s time.'),
+                          ],
+                        ),
+
+                        //CANCEL AND SUBMIT BUTTONS HERE
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            customTextButton(
+                              'Cancel',
+                              () {
+                                Navigator.pop(context);
+                              },
+                              width: 140,
+                            ),
+                            customTextButton(
+                              'Submit',
+                              () {
+                                String recurrence = '';
+                                if (_recurrenceController.value.text == '1') {
+                                  recurrence = 'daily';
+                                } else if (_recurrenceController.value.text ==
+                                    '7') {
+                                  recurrence = 'weekly';
+                                } else {
+                                  recurrence = 'other';
+                                }
+                                if (_formKey.currentState!.validate()) {
+                                  //TODO: destory text controllers properly
+                                  _firestore.collection('tasks').add({
+                                    'owner': userID,
+                                    'task_name': _nameController.value.text,
+                                    'tod': kGetFormattedTimeOfDay(selectedTime),
+                                    'recurrence': recurrence,
+                                    'completed': false,
+                                    'reminder': reminderValue,
+                                    'timestamp':
+                                        Timestamp.fromDate(DateTime.now()),
                                   });
-                                },
-                                items: <String>[
-                                  '15 minutes',
-                                  '30 minutes',
-                                  '1 hour',
-                                  '2 hours'
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                              const Text('before this task\'s time.'),
-                            ],
-                          ),
-
-                          //CANCEL AND SUBMIT BUTTONS HERE
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              customTextButton(
-                                'Cancel',
-                                () {
                                   Navigator.pop(context);
-                                },
-                                width: 140,
-                              ),
-                              customTextButton(
-                                'Submit',
-                                () {
-                                  String recurrence = '';
-                                  if (_recurrenceController.value.text == '1') {
-                                    recurrence = 'daily';
-                                  } else if (_recurrenceController.value.text ==
-                                      '7') {
-                                    recurrence = 'weekly';
-                                  } else {
-                                    recurrence = 'other';
-                                  }
-                                  if (_formKey.currentState!.validate()) {
-                                    //TODO: destory text controllers properly
-                                    _firestore.collection('tasks').add({
-                                      'owner': userID,
-                                      'task_name': _nameController.value.text,
-                                      'tod': selectedTime.toString(),
-                                      'recurrence': recurrence,
-                                      'completed': false,
-                                      'reminder': reminderValue,
-                                      'timestamp':
-                                          Timestamp.fromDate(DateTime.now()),
-                                    });
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                width: 140,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                                }
+                              },
+                              width: 140,
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

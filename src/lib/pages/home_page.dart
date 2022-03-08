@@ -91,9 +91,14 @@ class _HomePageState extends State<HomePage> {
                         margin:
                             EdgeInsets.symmetric(vertical: 25, horizontal: 15),
                         child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, TaskCreation.id);
-                            },
+                            onPressed: () => showDialog(
+                                  barrierDismissible: false,
+                                  barrierColor: const Color(0x77000000),
+                                  context: context,
+                                  builder: (context) {
+                                    return const TaskCreation();
+                                  },
+                                ),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [
