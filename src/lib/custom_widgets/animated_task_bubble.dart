@@ -41,8 +41,6 @@ class _TaskState extends State<AnimatedTaskBubble>
   double farthestShift = 0.0;
   double dragDistance = 0.0;
   bool snapBack = false;
-  // changed tells us if the task_completion changes states. This is so that the user can swipe less to uncomplete the task.
-  bool changed = false;
   bool temp = false;
 
   @override
@@ -70,27 +68,26 @@ class _TaskState extends State<AnimatedTaskBubble>
                     if (dragDistance < 0.0) {
                       dragDistance = 0.0;
                     }
-                    temp = widget.taskCompleted;
-                    widget.taskCompleted = toggleTaskCompleted(
-                        widget.taskCompleted, changed, dragDistance);
-                    if (temp != widget.taskCompleted) {
-                      changed = true;
-                    }
                     setState(() {
                       rightShift = log(dragDistance + 1) * 12;
                     });
                   },
                   onHorizontalDragEnd: (DragEndDetails) {
-                    dragDistance = 0;
                     farthestShift = rightShift;
                     snapBack = true;
                     drag_controller.forward();
-                    changed = false;
+                    widget.taskCompleted =
+                        toggleTaskCompleted(widget.taskCompleted, rightShift);
+                    dragDistance = 0;
                   },
                   child: Card(
                       // Color changes more green based on how far the card is shifted to the right.
-                      color: Color.fromARGB(80 + rightShift.toInt(), 0,
-                          0 + rightShift.toInt() * 3, 0),
+                      color: widget.taskCompleted
+                          ? Colors.grey
+                          : rightShift.toInt() < 60
+                              ? Color.fromARGB(175 + rightShift.toInt(), 0,
+                                  0 + rightShift.toInt() * 2, 0)
+                              : const Color.fromARGB(255, 0, 150, 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -125,18 +122,21 @@ class _TaskState extends State<AnimatedTaskBubble>
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
-                                      ))))
+                                      )))),
+                          Text(
+                            widget.taskCompleted.toString() + ' ',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 206, 206, 206),
+                              fontSize: 20,
+                            ),
+                          ),
                         ],
                       ))));
         });
   }
 
-  bool toggleTaskCompleted(
-      bool taskCompleted, bool changed, double dragDistance) {
-    if (!changed && dragDistance >= 40) {
-      return !taskCompleted;
-    }
-    if (changed && dragDistance <= 30) {
+  bool toggleTaskCompleted(bool taskCompleted, double rightShift) {
+    if (rightShift >= 60) {
       return !taskCompleted;
     }
     return taskCompleted;
