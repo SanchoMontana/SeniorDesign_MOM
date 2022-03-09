@@ -136,10 +136,14 @@ class _HomePageState extends State<HomePage> {
             for (var task in tasks!) {
               final task_name = task.data()["task_name"];
               final tod = task.data()["tod"];
+              final taskID = task.data()["id"];
+              final taskCompleted = task.data()["completed"];
               final bool daily = task.data()["daily"];
 
               final taskWidget = AnimatedTaskBubble(
+                taskID: taskID,
                 task_name: task_name,
+                taskCompleted: taskCompleted,
                 time: tod,
                 today: daily,
               );

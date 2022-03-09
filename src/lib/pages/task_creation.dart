@@ -287,7 +287,7 @@ class _TaskCreationState extends State<TaskCreation> {
                             ),
                             customTextButton(
                               'Submit',
-                              () {
+                              () async {
                                 String recurrence = '';
                                 if (_recurrenceController.value.text == '1') {
                                   recurrence = 'daily';
@@ -299,7 +299,8 @@ class _TaskCreationState extends State<TaskCreation> {
                                 }
                                 if (_formKey.currentState!.validate()) {
                                   //TODO: destory text controllers properly
-                                  _firestore.collection('tasks').add({
+                                  DocumentReference docRef =
+                                      await _firestore.collection('tasks').add({
                                     'owner': userID,
                                     'task_name': _nameController.value.text,
                                     'tod': kGetFormattedTimeOfDay(selectedTime),
@@ -308,7 +309,10 @@ class _TaskCreationState extends State<TaskCreation> {
                                     'reminder': reminderValue,
                                     'timestamp':
                                         Timestamp.fromDate(DateTime.now()),
+                                    'id': null,
                                   });
+                                  docRef.update({'id': docRef.id});
+
                                   Navigator.pop(context);
                                 }
                               },
