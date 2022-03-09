@@ -13,10 +13,19 @@ class Pet {
   late Cosmetic body;
   late Cosmetic shoes;
   late Cosmetic accessory;
+  late int headx;
+  late int heady;
+  late int bodyx;
+  late int bodyy;
+  late int shoesx;
+  late int shoesy;
+  late int accessoryx;
+  late int accessoryy;
   late List<Colors> colors;
   late List<Cosmetic> cosmetics;
+  late AssetImage pet;
 
   Pet();
   Pet.construct(this.type, this.name, this.head, this.body, this.shoes,
-      this.accessory, this.cosmetics);
+      this.accessory, this.cosmetics, this.pet);
 }

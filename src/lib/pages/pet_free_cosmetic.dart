@@ -42,27 +42,31 @@ class _PetNaming extends State<PetCosmeticSelection> {
   String choice = "accessory";
 
   _finalize() {
-    Cosmetic randomGift =
-        Cosmetic(1, CosmeticType.accessory, "randomGift", "randomGift");
     currentPet.cosmetics = <Cosmetic>[];
     switch (choice) {
       case "hat":
-        randomGift.type = CosmeticType.hat;
-        currentPet.cosmetics.add(randomGift);
+        currentPet.cosmetics.add(Cosmetic(1, CosmeticType.hat, "cboy",
+            "Cowboy Hat", const AssetImage("images/cboy.jpg")));
         break;
       case "body":
-        randomGift.type = CosmeticType.body;
-        currentPet.cosmetics.add(randomGift);
+        currentPet.cosmetics.add(Cosmetic(2, CosmeticType.body, "tux", "Tuxedo",
+            const AssetImage("images/tux.png")));
         break;
       case "shoes":
-        randomGift.type = CosmeticType.shoes;
-        currentPet.cosmetics.add(randomGift);
+        currentPet.cosmetics.add(Cosmetic(3, CosmeticType.shoes, "sandals",
+            "Sandals", const AssetImage("images/sandals.jpg")));
         break;
       case "accessory":
-        currentPet.cosmetics.add(randomGift);
+        currentPet.cosmetics.add(Cosmetic(4, CosmeticType.accessory, "bong",
+            "Bong", const AssetImage("images/bong.jpg")));
+        break;
     }
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const PetCustomization()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PetCustomization(
+                  currentPet: currentPet,
+                )));
   }
 
   @override

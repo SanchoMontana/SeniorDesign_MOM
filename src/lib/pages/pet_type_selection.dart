@@ -65,6 +65,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                   onTap: () {
                     // update data
                     newPet.type = PetType.bird;
+                    newPet.pet = const AssetImage('images/bird.png');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -78,6 +79,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                 InkWell(
                   onTap: () {
                     newPet.type = PetType.cat;
+                    newPet.pet = const AssetImage('images/cat.png');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -91,6 +93,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                 InkWell(
                   onTap: () {
                     newPet.type = PetType.dog;
+                    newPet.pet = const AssetImage('images/dog.jpg');
                     Navigator.push(
                         context,
                         MaterialPageRoute(

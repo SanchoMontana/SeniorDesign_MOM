@@ -1,6 +1,7 @@
 cmdline-tools/
 src/build/
 src/ios/
+src/macos/
 src/.flutter-plugins-dependencies
 src/.packages
 src/.dart_tool/package_config.json
