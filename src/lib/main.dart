@@ -8,11 +8,25 @@ import 'package:flutter/material.dart';
 import 'package:demo/themes/constants.dart';
 import 'package:demo/pages/home_page.dart';
 import 'package:demo/pages/welcome_screen.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:demo/custom_classes/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  NotificationService notif = NotificationService();
+
+  notif.new_notif();
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+  print('payload=');
+  String? payload = notificationAppLaunchDetails!.payload;
+  print(payload);
+
+  runApp(MaterialApp(home: payload == 'page1' ? Page1() : MainPage()));
 
   /*
     Uncomment the next two lines to clear cache of stored login information. 
