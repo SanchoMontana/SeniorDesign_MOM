@@ -41,7 +41,8 @@ class _TaskCreationState extends State<TaskCreation> {
 
   TimeOfDay selectedTime = TimeOfDay.now();
 
-  final TextEditingController _recurrenceController = TextEditingController();
+  final TextEditingController _recurrenceController =
+      TextEditingController(text: '1');
   final TextEditingController _nameController = TextEditingController();
 
   @override
@@ -68,8 +69,6 @@ class _TaskCreationState extends State<TaskCreation> {
 
   @override
   Widget build(BuildContext context) {
-    _recurrenceController.text = '1';
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
