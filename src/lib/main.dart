@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:demo/themes/constants.dart';
 import 'package:demo/pages/home_page.dart';
 import 'package:demo/pages/welcome_screen.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
