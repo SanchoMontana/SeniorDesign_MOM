@@ -21,8 +21,8 @@ void main() async {
     and the user will immediately be directed to the apps home page.
     (Only should be uncommented for testing purposes)
   */
-  //SharedPreferences logindata = await SharedPreferences.getInstance();
-  //await logindata.clear();
+  SharedPreferences logindata = await SharedPreferences.getInstance();
+  await logindata.clear();
 
   runApp(Unblockd());
 }
