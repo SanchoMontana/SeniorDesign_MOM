@@ -45,20 +45,20 @@ class _PetNaming extends State<PetCosmeticSelection> {
     currentPet.cosmetics = <Cosmetic>[];
     switch (choice) {
       case "hat":
-        currentPet.cosmetics.add(Cosmetic(1, CosmeticType.hat, "cboy",
+        currentPet.cosmetics.add(Cosmetic.build(1, CosmeticType.hat, "cboy",
             "Cowboy Hat", const AssetImage("images/cboy.jpg")));
         break;
       case "body":
-        currentPet.cosmetics.add(Cosmetic(2, CosmeticType.body, "tux", "Tuxedo",
-            const AssetImage("images/tux.png")));
+        currentPet.cosmetics.add(Cosmetic.build(2, CosmeticType.body, "tux",
+            "Tuxedo", const AssetImage("images/tux.png")));
         break;
       case "shoes":
-        currentPet.cosmetics.add(Cosmetic(3, CosmeticType.shoes, "sandals",
-            "Sandals", const AssetImage("images/sandals.jpg")));
+        currentPet.cosmetics.add(Cosmetic.build(3, CosmeticType.shoes,
+            "sandals", "Sandals", const AssetImage("images/sandals.jpg")));
         break;
       case "accessory":
-        currentPet.cosmetics.add(Cosmetic(4, CosmeticType.accessory, "bong",
-            "Bong", const AssetImage("images/bong.jpg")));
+        currentPet.cosmetics.add(Cosmetic.build(4, CosmeticType.accessory,
+            "bong", "Bong", const AssetImage("images/bong.jpg")));
         break;
     }
     Navigator.push(

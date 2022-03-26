@@ -1,5 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 import 'package:demo/pages/login_screen.dart';
+import 'package:demo/pages/pet_creation.dart';
+import 'package:demo/pages/pet_intro.dart';
 import 'package:demo/pages/registration_screen.dart';
 import 'package:demo/pages/splash_loading_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,8 +23,8 @@ void main() async {
     and the user will immediately be directed to the apps home page.
     (Only should be uncommented for testing purposes)
   */
-  //SharedPreferences logindata = await SharedPreferences.getInstance();
-  //await logindata.clear();
+  SharedPreferences logindata = await SharedPreferences.getInstance();
+  await logindata.clear();
 
   runApp(Unblockd());
 }
@@ -41,6 +43,7 @@ class Unblockd extends StatelessWidget {
         RegistrationScreen.id: (context) => RegistrationScreen(),
         HomePage.id: (context) => HomePage(),
         TaskCreation.id: (context) => TaskCreation(),
+        PetIntro.id: (context) => PetIntro(),
       },
     );
   }

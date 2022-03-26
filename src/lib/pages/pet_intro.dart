@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'pet_type_selection.dart';
 
 class PetIntro extends StatefulWidget {
+  static const String id = 'pet_intro_nav';
   const PetIntro({Key? key}) : super(key: key);
 
   @override
