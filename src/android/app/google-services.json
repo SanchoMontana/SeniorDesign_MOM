@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "71441129985",
+    "project_id": "unblockd-3ae27",
+    "storage_bucket": "unblockd-3ae27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71441129985:android:6b9fda492cf25e62349600",
+        "android_client_info": {
+          "package_name": "com.example.unblockd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71441129985-r38gi826hq156b3sp4937skcqrp8p29t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRr2j_6w2Jolvre4HGigXAWnlICBRXfQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71441129985-r38gi826hq156b3sp4937skcqrp8p29t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
