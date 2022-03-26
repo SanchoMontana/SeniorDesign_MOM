@@ -93,7 +93,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                 InkWell(
                   onTap: () {
                     newPet.type = PetType.dog;
-                    newPet.pet = const AssetImage('images/dog.jpg');
+                    newPet.pet = const AssetImage('images/dog.png');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -102,7 +102,7 @@ class _PetTypeSelectionState extends State<PetTypeSelection> {
                                 )));
                   },
                   splashColor: Colors.purple,
-                  child: const Image(image: AssetImage('images/dog.jpg')),
+                  child: const Image(image: AssetImage('images/dog.png')),
                 ),
               ],
               carouselController: buttonCarouselController,

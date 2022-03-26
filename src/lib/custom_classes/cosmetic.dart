@@ -10,7 +10,7 @@ class Cosmetic {
   late String fullName;
   // making the following image const prevents it from being overwritten when needed
   // ignore: prefer_const_constructors
-  AssetImage cosmetic = AssetImage("images/tux.png");
+  AssetImage cosmetic = AssetImage("images/cowboy_hat.png");
   Cosmetic();
   Cosmetic.build(
       this.ID, this.type, this.displayName, this.fullName, this.cosmetic);

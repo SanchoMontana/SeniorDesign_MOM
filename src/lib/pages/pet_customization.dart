@@ -1,4 +1,5 @@
 import 'package:demo/custom_widgets/pet_widget.dart';
+import 'package:demo/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,8 +25,8 @@ void setCosmetic(Cosmetic selected) async {
 }
 
 List<Cosmetic> allCosmetics = [
-  Cosmetic.build(2, CosmeticType.body, "tux", "Tuxedo",
-      const AssetImage("images/tux.png")),
+  Cosmetic.build(2, CosmeticType.hat, "cowboy_hat", "Cowboy Hat",
+      const AssetImage("images/cowboy_hat.png")),
 ];
 
 class _PetCustomizationState extends State<PetCustomization> {
@@ -53,11 +54,7 @@ class _PetCustomizationState extends State<PetCustomization> {
   void sendToMainScreen() {
     // TODO: Need to make this nav to main screen
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PetCustomization(
-                  currentPet: currentPet,
-                )));
+        context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   List<Widget> selectable = [
@@ -98,12 +95,12 @@ class _PetCustomizationState extends State<PetCustomization> {
                               child: Image(image: currentPet.pet),
                             )),
                             Positioned(
-                                top: 120.0,
-                                left: 75.0,
+                                top: 75,
+                                left: 82,
                                 child: SizedBox(
-                                  width: 250,
-                                  height: 250,
-                                  child: Image(image: currentPet.body.cosmetic),
+                                  width: 75,
+                                  height: 50,
+                                  child: Image(image: currentPet.head.cosmetic),
                                 ))
                           ],
                         ))),
@@ -129,7 +126,8 @@ class _PetCustomizationState extends State<PetCustomization> {
                         ]),
                       ),
                       ElevatedButton(
-                          onPressed: sendToMainScreen,
+                          onPressed: () =>
+                              {Navigator.pushNamed(context, HomePage.id)},
                           child: const Text('Save'))
                     ]),
                   ),

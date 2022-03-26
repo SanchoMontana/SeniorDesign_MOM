@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 Align(
                     alignment: Alignment.bottomLeft,
                     child: Image.asset(
-                      "res/pet.png",
+                      "images/hatted_dog.png",
                       alignment: Alignment.bottomRight,
                       height: 150,
                       width: 150,
