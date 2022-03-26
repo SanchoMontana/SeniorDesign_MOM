@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PetImplementation extends StatelessWidget {
+  static const String id = 'pet_implementation_nav';
   const PetImplementation({Key? key}) : super(key: key);
 
   @override

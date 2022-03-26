@@ -1,7 +1,8 @@
-import 'package:demo/custom_widgets/accessorizer.dart';
 import 'package:demo/custom_widgets/pet_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../custom_classes/cosmetic.dart';
 import '../custom_classes/pet.dart';
 
 class PetCustomization extends StatefulWidget {
@@ -14,14 +15,61 @@ class PetCustomization extends StatefulWidget {
   State<PetCustomization> createState() => _PetCustomizationState(currentPet);
 }
 
+// will need to be fed from firebase
+SharedPreferences? prefs;
+
+void setCosmetic(Cosmetic selected) async {
+  prefs = await SharedPreferences.getInstance();
+  prefs?.setString(selected.type.toString(), selected.displayName);
+}
+
+List<Cosmetic> allCosmetics = [
+  Cosmetic.build(2, CosmeticType.body, "tux", "Tuxedo",
+      const AssetImage("images/tux.png")),
+];
+
 class _PetCustomizationState extends State<PetCustomization> {
   late Pet currentPet;
 
   @override
   initState() {
     currentPet = super.widget.currentPet;
+    updatePet();
     super.initState();
   }
+
+  void updatePet() async {
+    currentPet.head = Cosmetic();
+    currentPet.body = Cosmetic();
+    currentPet.shoes = Cosmetic();
+    currentPet.accessory = Cosmetic();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString(allCosmetics[0].type.toString()) != null) {
+      currentPet.body = Cosmetic();
+      currentPet.body = allCosmetics[0];
+    }
+  }
+
+  void sendToMainScreen() {
+    // TODO: Need to make this nav to main screen
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PetCustomization(
+                  currentPet: currentPet,
+                )));
+  }
+
+  List<Widget> selectable = [
+    SizedBox(
+        width: 200,
+        height: 200,
+        child: InkWell(
+            onTap: () {
+              setCosmetic(allCosmetics[0]);
+            },
+            child: Image(image: allCosmetics[0].cosmetic))),
+  ];
 
   _PetCustomizationState(Pet currentPet);
   @override
@@ -37,9 +85,54 @@ class _PetCustomizationState extends State<PetCustomization> {
                     fontSize: 24)),
             Row(
               children: [
-                Expanded(child: PetWidget(currentPet)),
                 Expanded(
-                  child: Accessorizer(),
+                    child: SizedBox(
+                        width: 200,
+                        height: 400,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                                child: SizedBox(
+                              width: 400,
+                              height: 400,
+                              child: Image(image: currentPet.pet),
+                            )),
+                            Positioned(
+                                top: 120.0,
+                                left: 75.0,
+                                child: SizedBox(
+                                  width: 250,
+                                  height: 250,
+                                  child: Image(image: currentPet.body.cosmetic),
+                                ))
+                          ],
+                        ))),
+                Expanded(
+                  child: SizedBox(
+                    width: 200,
+                    height: 500,
+                    child: Column(children: [
+                      Text(
+                        "Cosmetics",
+                        style: TextStyle(
+                            color: Colors.purple[600],
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20),
+                      ),
+                      SizedBox(
+                        width: 400,
+                        height: 400,
+                        child: CustomScrollView(slivers: <Widget>[
+                          SliverList(
+                            delegate: SliverChildListDelegate(selectable),
+                          )
+                        ]),
+                      ),
+                      ElevatedButton(
+                          onPressed: sendToMainScreen,
+                          child: const Text('Save'))
+                    ]),
+                  ),
                 )
               ],
             ),

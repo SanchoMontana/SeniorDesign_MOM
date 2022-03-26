@@ -8,8 +8,12 @@ class Cosmetic {
   late CosmeticType type;
   late String displayName;
   late String fullName;
-  late AssetImage cosmetic;
-  Cosmetic(this.ID, this.type, this.displayName, this.fullName, this.cosmetic);
+  // making the following image const prevents it from being overwritten when needed
+  // ignore: prefer_const_constructors
+  AssetImage cosmetic = AssetImage("images/tux.png");
+  Cosmetic();
+  Cosmetic.build(
+      this.ID, this.type, this.displayName, this.fullName, this.cosmetic);
   @override
   String toString() {
     // ignore: unnecessary_this
